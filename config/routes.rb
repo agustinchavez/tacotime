@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'welcome_controller/index'
+
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
   resources :restaurants
   resources :gifts
   resources :menu_items
@@ -8,6 +12,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+    root 'welcome_controller#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
