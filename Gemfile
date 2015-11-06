@@ -45,7 +45,7 @@ gem 'devise'
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring'
-  gem 'pry-byebug'
+  gem 'pry'
 end
 
 group :test do
