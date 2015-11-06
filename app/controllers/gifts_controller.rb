@@ -1,6 +1,8 @@
 class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy]
 
+  before_filter :authenticate_user!
+
   # GET /gifts
   # GET /gifts.json
   def index
