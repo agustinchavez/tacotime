@@ -1,18 +1,34 @@
 Rails.application.routes.draw do
   get 'welcome_controller/index'
+  root 'welcome_controller#index'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
   resources :restaurants
-  resources :gifts
+  resources :gifts, only: [:show]
   resources :menu_items
-  resources :users
+  resources :users, only: [:create]
+
+   resources :restaurants, only: [:index, :show] do
+    resources :menu_items, only: [:destroy, :create, :update]
+    resources :gifts, only: [:new, :create]
+  end
+
+  get '/login' => 'user_sessions#new'
+  delete '/logout' => 'user_sessions#destroy'
+  get '/profile' => 'users#show'
+  get '/register' => 'users#new'
+  get '/restaurants/login' => 'restaurant_sessions#new'
+  delete '/restaurants/logout' => 'restaurant_sessions#destroy'
+  get '/restaurants/profile' => 'restaurants#show'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-    root 'welcome_controller#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
