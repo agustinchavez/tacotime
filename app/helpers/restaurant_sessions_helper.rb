@@ -1,0 +1,2 @@
+module RestaurantSessionsHelper
+end

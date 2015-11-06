@@ -8,5 +8,6 @@ class Restaurant < ActiveRecord::Base
   validates :email, :name, length: {maximum: 50}
   validates :address, length: {maximum: 150}
   validates_email_format_of :email, message: "Not formatted correctly"
+  validates_uniqueness_of :email, :username
   validates :password, :presence => true, :length => {minimum: 6}, :on => :create
 end
