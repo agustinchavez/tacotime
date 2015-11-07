@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :restaurants
   get 'welcome_controller/index'
   root 'welcome_controller#index'
 
@@ -18,9 +19,6 @@ Rails.application.routes.draw do
   delete '/logout' => 'user_sessions#destroy'
   get '/profile' => 'users#show'
   get '/register' => 'users#new'
-  get '/restaurants/login' => 'restaurant_sessions#new'
-  delete '/restaurants/logout' => 'restaurant_sessions#destroy'
-  get '/restaurants/profile' => 'restaurants#show'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

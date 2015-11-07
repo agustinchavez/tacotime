@@ -1,12 +1,8 @@
 class CreateRestaurants < ActiveRecord::Migration
   def change
-    create_table :restaurant do |t|
-        t.string :first_name, null:false, limit:20
-        t.string :last_name, null:false, limit:20
-        t.string :email, null:false, limit:50
+    create_table :restaurants do |t|
         t.string :name, null:false, limit:50
         t.string :address, null:false, limit:150
-        t.string :password_digest, null:false
       t.timestamps
     end
   end

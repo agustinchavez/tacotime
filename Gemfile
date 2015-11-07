@@ -36,6 +36,8 @@ gem 'twilio-ruby', '~> 4.2.1'
 
 gem 'devise'
 
+gem 'ransack'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
