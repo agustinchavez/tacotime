@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+User.create(username: 'anonymous', password: "password")
+
+10.times do
+  User.create(username: Faker::Internet.user_name, password: "password")
+end
+
+10.times do
+  restaurant = Restaurant.create(name: Faker::Hacker.abbreviation + ' Restaurant', address: Faker::Address.street_address, username: Faker::Internet.user_name, email: Faker::Internet.email, password: 'password')
+  5.times do
+      restaurant.menu_items.create(name: (Faker::App.name+' '+['Taco', 'Torta', 'Burrito', 'Sope', 'Enchilada'].sample), price: rand(2..5))
+  end
+end
