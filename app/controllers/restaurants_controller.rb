@@ -11,6 +11,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1.json
   def show
     @restaurant = Restaurant.find_by(id: params[:id])
+    @restaurant = current_restaurant unless @restaurant
   end
 
   # GET /restaurants/new

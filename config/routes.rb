@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations' }
 
+  get '/restaurants/login' => 'restaurant_sessions#new'
+  get '/restaurants/profile' => 'restaurants#show'
+
   resources :restaurants
-  resources :gifts, only: [:show]
   resources :menu_items
-  resources :users, only: [:create]
+
 
    resources :restaurants, only: [:index, :show] do
     resources :menu_items, only: [:destroy, :create, :update]
@@ -17,9 +19,14 @@ Rails.application.routes.draw do
 
   get '/login' => 'user_sessions#new'
   delete '/logout' => 'user_sessions#destroy'
-  get '/profile' => 'users#show'
+  get '/profile/' => 'users#show'
   get '/register' => 'users#new'
 
+  post '/restaurants/sessions' => 'restaurant_sessions#create'
+  delete '/restaurants/logout' => 'restaurant_sessions#destroy'
+
+  resources :users, only: [:create]
+  resources :gifts, only: [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
