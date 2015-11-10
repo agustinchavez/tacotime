@@ -7,15 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-
-
-  <ul class="hmenu">
-    <%= render 'devise/shared/registration_items' %>
-    <%= render 'devise/shared/login_items' %>
-    <%= link_to "Register as a Restaurant", new_restaurant_registration_path, class: "button" %>
-    <%= link_to "Login as a Restaurant", restaurant_session_path, class: "button" %>
-  </ul>
+  <%= render "layouts/header" %>
 
    <p class="notice"><%= notice %></p>
    <p class="alert"><%= alert %></p>

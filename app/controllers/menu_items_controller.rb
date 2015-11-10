@@ -1,8 +1,7 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_restaurant
-  before_action :find_menu_item, except: [:create]
-  before_action :authorize_restaurant, only: [:update, :destroy]
+  before_action :find_menu_item, :authenticate_restaurant
+  before_action :authorize_restaurant, {except: :create}
 
   # GET /menu_items
   # GET /menu_items.json
@@ -27,7 +26,7 @@ class MenuItemsController < ApplicationController
   # POST /menu_items
   # POST /menu_items.json
   def create
-    @menu_item = MenuItem.new(menu_item_params)
+    restaurant = current_restaurant
 
     respond_to do |format|
       if @menu_item.save
@@ -68,23 +67,21 @@ class MenuItemsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_menu_item
-      @menu_item = MenuItem.find(params[:id])
-    end
+  def find_menu_item
+    @menu_item = MenuItem.find_by_slug(params[:id])
+  end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def menu_item_params
-      params.require(:menu_item).permit(:name, :price)
-    end
-
+  def menu_item_params
+    params.require(:menu_item).permit(:name, :price)
+  end
 
   def authenticate_restaurant
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    redirect_to restaurant_path(@restaurant) if !current_restaurant
+    redirect_to root_path unless current_restaurant
   end
 
   def authorize_restaurant
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    redirect_to restaurant_path(@restaurant) if current_restaurant!=@menu_item.restaurant
+    redirect_to root_path unless current_restaurant.owns_item?(@menu_item)
   end
+
 end
