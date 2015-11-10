@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     ##what will this return?
   end
 
+  def received_taco?(gift)
+    self == gift.receiver
+  end
+
   private
 
   def normalize_phone
