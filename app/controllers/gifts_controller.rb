@@ -1,7 +1,8 @@
 class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize_user, only: [:show]
   before_filter :authenticate_user!
+
 
   # GET /gifts
   # GET /gifts.json
@@ -12,10 +13,14 @@ class GiftsController < ApplicationController
   # GET /gifts/1
   # GET /gifts/1.json
   def show
+    @gift = Gift.find_by(id: params[:id])
+    @cafe = @gift.restaurant
   end
 
   # GET /gifts/new
   def new
+    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
+    # @menu_items = @restaurant.menu_items
     @gift = Gift.new
   end
 
@@ -26,17 +31,16 @@ class GiftsController < ApplicationController
   # POST /gifts
   # POST /gifts.json
   def create
-    @gift = Gift.new(gift_params)
-
-    respond_to do |format|
-      if @gift.save
-        format.html { redirect_to @gift, notice: 'Gift was successfully created.' }
-        format.json { render :show, status: :created, location: @gift }
-      else
-        format.html { render :new }
-        format.json { render json: @gift.errors, status: :unprocessable_entity }
-      end
+    gift = current_user.given_tacos.build(gift_params)
+    if gift.save
+      text = TwilioTextSender.new(gift)
+      text.send!
+      redirect_to root_path
+    else
+      flash[:error] = gift.errors.full_messages
+      redirect_to new_restaurant_gift_path(@restaurant)
     end
+
   end
 
   # PATCH/PUT /gifts/1
@@ -64,13 +68,29 @@ class GiftsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+
+
+    def authorize_user
+      redirect_to root_path unless current_user==@gift.receiver
+    end
+
+    def authenticate_user
+      redirect_to root_path unless current_user
+    end
+
+    def gift_basic_params
+      params.require(:gift).permit(:message)
+    end
+
     def set_gift
       @gift = Gift.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gift_params
-      params[:gift]
+      receiver = User.find_by(email: params[:gift][:receiver])
+      menu_item = MenuItem.find_by(id: params[:gift][:menu_item])
+      gift_basic_params.merge(receiver: receiver, menu_item: menu_item)
     end
 end

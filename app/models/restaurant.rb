@@ -6,6 +6,7 @@ class Restaurant < ActiveRecord::Base
 
 
   has_many :menu_items
+  has_many :gifts, through: :menu_items
 
   validates_presence_of :name, :address, :email
   validates :name, length: {maximum: 50}
