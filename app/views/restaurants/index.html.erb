@@ -15,13 +15,11 @@
         <td><%= link_to 'Show', restaurant %></td>
         <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
         <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to restaurant.name, restaurant_path(restaurant) %></td>
-        <td><li><%=restaurant%></li></td>
+        <td><li><%= render partial: "restaurant", collection: @restaurants %></li></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
 
 <%= link_to 'New Restaurant', new_restaurant_path %>

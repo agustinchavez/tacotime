@@ -1,8 +1,8 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_restaurant
-  before_action :find_menu_item, :find_restaurant, except: [:create]
-  before_action :authorize_restaurant, only: [:update]
+  before_action :find_menu_item, except: [:create]
+  before_action :authorize_restaurant, only: [:update, :destroy]
 
   # GET /menu_items
   # GET /menu_items.json
@@ -43,6 +43,7 @@ class MenuItemsController < ApplicationController
   # PATCH/PUT /menu_items/1
   # PATCH/PUT /menu_items/1.json
   def update
+    @restaurant = @menu_item.restaurant
     respond_to do |format|
       if @menu_item.update(menu_item_params)
         format.html { redirect_to @menu_item, notice: 'Menu item was successfully updated.' }
@@ -57,6 +58,7 @@ class MenuItemsController < ApplicationController
   # DELETE /menu_items/1
   # DELETE /menu_items/1.json
   def destroy
+    @restaurant = @menu_item.restaurant
     @menu_item.destroy
     respond_to do |format|
       format.html { redirect_to menu_items_url, notice: 'Menu item was successfully destroyed.' }
@@ -75,15 +77,14 @@ class MenuItemsController < ApplicationController
       params.require(:menu_item).permit(:name, :price)
     end
 
-    def find_restaurant
-      @restaurant = @menu_item.restaurant
-    end
 
   def authenticate_restaurant
+    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
     redirect_to restaurant_path(@restaurant) if !current_restaurant
   end
 
   def authorize_restaurant
+    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
     redirect_to restaurant_path(@restaurant) if current_restaurant!=@menu_item.restaurant
   end
 end
