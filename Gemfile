@@ -28,6 +28,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'validates_email_format_of'
 
+gem 'phony_rails'
+
 gem 'faker'
 
 gem 'rails_12factor'
@@ -36,7 +38,6 @@ gem 'twilio-ruby', '~> 4.2.1'
 
 gem 'devise'
 
-gem 'ransack'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -50,11 +51,14 @@ group :development do
   gem 'pry'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
 group :test do
   gem 'factory_girl_rails'
   gem 'simplecov', :require => false
   gem 'shoulda-matchers'
-  gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
   gem 'database_cleaner'
