@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'user_sessions#new'
   delete '/logout' => 'user_sessions#destroy'
-  get '/profile/' => 'users#show'
+  get '/profile' => 'users#show'
   get '/register' => 'users#new'
 
   post '/restaurants/sessions' => 'restaurant_sessions#create'

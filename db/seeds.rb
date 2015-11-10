@@ -12,7 +12,12 @@ User.create(username: 'anonymous', password: "password")
 end
 
 10.times do
-  restaurant = Restaurant.create(name: Faker::Hacker.abbreviation + ' Restaurant', address: Faker::Address.street_address, username: Faker::Internet.user_name, email: Faker::Internet.email, password: 'password')
+  adress_string = "#{Faker::Address.street_address},
+     #{Faker::Address.city},
+     #{Faker::Address.state_abbr},
+     #{Faker::Address.zip}"
+
+  restaurant = Restaurant.create(name: Faker::Hacker.abbreviation + ' Restaurant', address: adress_string, username: Faker::Internet.first_name, email: Faker::Internet.email, password: 'password')
   5.times do
       restaurant.menu_items.create(name: (Faker::App.name+' '+['Taco', 'Torta', 'Burrito', 'Sope', 'Enchilada'].sample), price: rand(2..5))
   end
