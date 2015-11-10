@@ -18,9 +18,11 @@ Rails.application.routes.draw do
   end
 
   get '/login' => 'user_sessions#new'
+  post '/users/sessions' => 'user_sessions#create'
   delete '/logout' => 'user_sessions#destroy'
   get '/profile' => 'users#show'
   get '/register' => 'users#new'
+  get '/confirmation/:id' => 'gifts#confirm', as: "confirmation"
 
   post '/restaurants/sessions' => 'restaurant_sessions#create'
   delete '/restaurants/logout' => 'restaurant_sessions#destroy'

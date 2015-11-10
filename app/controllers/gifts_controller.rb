@@ -13,7 +13,7 @@ class GiftsController < ApplicationController
   # GET /gifts/1
   # GET /gifts/1.json
   def show
-    @gift = Gift.find_by(id: params[:id])
+    find_gift
     @cafe = @gift.restaurant
   end
 
@@ -35,7 +35,7 @@ class GiftsController < ApplicationController
     if gift.save
       text = TwilioTextSender.new(gift)
       text.send!
-      redirect_to root_path
+      redirect_to confirmation_path(gift)
     else
       flash[:error] = gift.errors.full_messages
       redirect_to new_restaurant_gift_path(@restaurant)
@@ -67,12 +67,18 @@ class GiftsController < ApplicationController
     end
   end
 
+  def confirm
+  end
+
   private
 
-
+    def find_gift
+      @gift = Gift.find_by(id: params[:id])
+    end
 
     def authorize_user
-      redirect_to root_path unless current_user==@gift.receiver
+      find_gift
+      redirect_to root_path unless current_user.received_taco?(@gift)
     end
 
     def authenticate_user
