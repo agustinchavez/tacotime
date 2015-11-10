@@ -12,6 +12,7 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find_by(id: params[:id])
     @restaurant = current_restaurant unless @restaurant
+    @menu_items = @restaurant.menu_items
   end
 
   # GET /restaurants/new

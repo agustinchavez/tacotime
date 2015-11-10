@@ -1,12 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Here are available menu items: <%=@restaurant.name%></h1>
+<h1><%=@restaurant.name%></h1>
+<h2>Menu Items</h2>
 
 <ul>
-<% @restaurant.menu_items.each do |item| %>
-  <li><%= item.name %>: $<%=item.price %></li>
-  <%end%>
+<%= render @menu_items %>
 </ul>
+
+<h3>Add a new item</h3>
+<%= render partial:"menu_items/new", locals:{menu_item: @menu_item, restaurant: @restaurant} %>
+
+<%= link_to "Buy a taco for a friend", new_restaurant_gift_path(@restaurant) %>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

@@ -14,13 +14,13 @@ class GiftsController < ApplicationController
   # GET /gifts/1.json
   def show
     find_gift
-    @cafe = @gift.restaurant
+    @restaurant = @gift.restaurant
   end
 
   # GET /gifts/new
   def new
     @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    # @menu_items = @restaurant.menu_items
+    @menu_items = @restaurant.menu_items
     @gift = Gift.new
   end
 
@@ -68,6 +68,8 @@ class GiftsController < ApplicationController
   end
 
   def confirm
+    @gift = Gift.find_by(id: params[:id])
+    @restaurant = @gift.restaurant
   end
 
   private

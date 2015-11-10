@@ -13,4 +13,8 @@ class Restaurant < ActiveRecord::Base
 
   validates :address, length: {maximum: 150}
 
+  def owns_item?(menu_item)
+    self == menu_item.cafe
+  end
+
 end
