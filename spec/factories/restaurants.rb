@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :cafe do
-    name { "#{Faker::App.name} Cafe" }
+  factory :restaurant do
+    name { "#{Faker::App.name} Restaurant" }
     address {
       "#{Faker::Address.street_address},
       #{Faker::Address.city},
@@ -8,7 +8,7 @@ FactoryGirl.define do
       #{Faker::Address.zip}"
     }
     password "password"
+    username { Faker::Internet.user_name }
     email { Faker::Internet.email }
-    neighborhood {Faker::Address.city}
   end
 end

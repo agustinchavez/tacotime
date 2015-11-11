@@ -9,4 +9,12 @@ class RegistrationsController < Devise::RegistrationsController
   def account_update_params
     params.require(:user).permit(:first_name, :last_name, :phone, :email, :password, :password_confirmation, :current_password)
   end
+
+  def sign_up_params
+    params.require(:restaurant).permit(:name, :address, :phone, :email, :password, :password_confirmation)
+  end
+
+  def account_update_params
+    params.require(:restaurant).permit(:name, :address, :phone, :email, :password, :password_confirmation)
+  end
 end

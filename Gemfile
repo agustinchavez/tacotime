@@ -6,7 +6,7 @@ gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -38,6 +38,7 @@ gem 'twilio-ruby', '~> 4.2.1'
 
 gem 'devise'
 
+gem 'foundation-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -48,11 +49,11 @@ gem 'devise'
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'spring'
-  gem 'pry'
 end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'pry'
 end
 
 group :test do

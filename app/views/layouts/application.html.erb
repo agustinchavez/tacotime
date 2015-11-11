@@ -1,18 +1,31 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Tacotime</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <%= render "layouts/header" %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-   <p class="notice"><%= notice %></p>
-   <p class="alert"><%= alert %></p>
+    <title><%= content_for?(:title) ? yield(:title) : "TacoTime" %></title>
 
-<%= yield %>
+    <%= stylesheet_link_tag    "application",      "data-turbolinks-track" => true, media: "all" %>
+    <%= javascript_include_tag "vendor/modernizr", 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
 
-</body>
+  <body>
+    <%= render "header" %>
+    <% if flash[:error] %>
+      <ul><% flash[:error].each do |error| %>
+      <li><%= error %></li>
+      <%end%>
+      </ul>
+    <%end%>
+
+     <p class="notice"><%= notice %></p>
+     <p class="alert"><%= alert %></p>
+
+    <%= yield %>
+    <%= render "footer" %>
+
+  </body>
 </html>
