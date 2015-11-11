@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name, :last_name, :email, :phone
   validates :first_name, length: {maximum: 20}
   validates :last_name, length: {maximum: 20}
+  validates_length_of :phone, :is => 10
   validates_format_of :phone, with: /\d{10}/, message: "is not in the correct format"
 
   def reward

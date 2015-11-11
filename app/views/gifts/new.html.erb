@@ -1,6 +1,6 @@
 <h1>Send Some Tacos from <%=@restaurant.name%>!</h1>
 
-<%= form_for @gift, url: restaurant_gift_path(@restaurant) do |f| %>
+<%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
   <%= f.label :receiver, "Send to: " %>
   <%= f.text_field :receiver %><br/>
   <%= f.label :menu_item, "Menu Items: "%>

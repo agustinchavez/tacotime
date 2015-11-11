@@ -1,0 +1,8 @@
+<nav class="header-nav">
+  <ul>
+    <%= render 'devise/shared/registration_items' %>
+    <%= render 'devise/shared/login_items' %>
+    <li><%= link_to "Register as a Restaurant", new_restaurant_registration_path, class: "button" %></li>
+    <li><%= link_to "Login as a Restaurant", restaurant_session_path, class: "button" %></li>
+  <ul>
+</nav>

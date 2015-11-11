@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :restaurants
+
   get 'welcome_controller/index'
   root 'welcome_controller#index'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :restaurants, :controllers => { registrations: 'registrations' }
 
   get '/restaurants/login' => 'restaurant_sessions#new'
   get '/restaurants/profile' => 'restaurants#show'

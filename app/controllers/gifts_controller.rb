@@ -84,7 +84,10 @@ class GiftsController < ApplicationController
     end
 
     def authenticate_user
-      redirect_to root_path unless current_user
+      unless current_user
+       flash[:error] = ["Please login to send a meal."]
+       redirect_to root_path
+      end
     end
 
     def gift_basic_params
