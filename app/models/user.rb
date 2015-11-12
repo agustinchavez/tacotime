@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   has_many :given_tacos, class_name: :Gift, foreign_key: :giver_id
   has_many :received_tacos, class_name: :Gift, foreign_key: :receiver_id
 
-  before_save :normalize_phone
+
+  before_save :extract_username
 
   validates_presence_of :first_name, :last_name, :email, :phone
   validates :first_name, length: {maximum: 20}
@@ -24,10 +25,16 @@ class User < ActiveRecord::Base
     self == gift.receiver
   end
 
+  def find_associated_tacos
+   received_tacos << gift if gift = Gift.find_by(phone: phone)
+ end
+
   private
 
-  def normalize_phone
-    self.phone = "+1" + phone.to_s
+
+
+   def extract_username
+    self.email = self.email.split('@').first.downcase
   end
 
 end

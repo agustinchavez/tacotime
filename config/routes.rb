@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
    resources :restaurants, only: [:index, :show] do
     resources :menu_items, only: [:destroy, :create, :update]
-    resources :gifts, only: [:new, :create]
+    resources :gifts, only: [:new, :create, :update]
   end
 
   get '/login' => 'user_sessions#new'

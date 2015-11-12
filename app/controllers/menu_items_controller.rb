@@ -43,6 +43,7 @@ class MenuItemsController < ApplicationController
   # PATCH/PUT /menu_items/1.json
   def update
     @restaurant = @menu_item.restaurant
+    @menu_item.update_attributes(menu_item_params)
     respond_to do |format|
       if @menu_item.update(menu_item_params)
         format.html { redirect_to @menu_item, notice: 'Menu item was successfully updated.' }
