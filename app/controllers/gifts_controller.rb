@@ -1,7 +1,7 @@
 class GiftsController < ApplicationController
   before_action :set_gift, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:show]
-  before_filter :authenticate_user!
+  before_filter :authenticate_user, except: [:update]
 
 
   # GET /gifts
@@ -37,7 +37,7 @@ class GiftsController < ApplicationController
       text.send!
       redirect_to confirmation_path(gift)
     else
-      flash[:error] = gift.errors.full_messages
+
       redirect_to new_restaurant_gift_path(@restaurant)
     end
 
@@ -46,14 +46,14 @@ class GiftsController < ApplicationController
   # PATCH/PUT /gifts/1
   # PATCH/PUT /gifts/1.json
   def update
-    respond_to do |format|
-      if @gift.update(gift_params)
-        format.html { redirect_to @gift, notice: 'Gift was successfully updated.' }
-        format.json { render :show, status: :ok, location: @gift }
-      else
-        format.html { render :edit }
-        format.json { render json: @gift.errors, status: :unprocessable_entity }
-      end
+    find_gift
+    if @gift.update_attributes(redeemed: true)
+      flash[:notice] = ["Meal Redeemed!"]
+      # some type of notice to the receiver
+      redirect_to restaurants_profile_path
+    else
+      flash[:error] = ["Unable to redeem voucher"]
+      redirect_to restaurants_profile_path
     end
   end
 

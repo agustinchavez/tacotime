@@ -10,7 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find_by(id: params[:id])
+    @user = current_user
+    @unredeemed_gifts = @user.received_tacos.where('redeemed = ?', false)
+    @redeemed_gifts = @user.received_tacos.where('redeemed = ?', true)
   end
 
   # GET /users/new
@@ -26,15 +28,14 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      log_in_user(@user)
+      @user.find_associated_tacos
+      flash[:notice] = "Account has been created!!"
+      redirect_to root_path
+    else
+      flash[:error] = @user.errors.full_messages
+      render :new
     end
   end
 

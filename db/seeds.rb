@@ -12,7 +12,7 @@ address_string = "#{Faker::Address.street_address},
                   #{Faker::Address.zip}"
 
 User.create(username: 'user', password: "password")
-Restaurant.create(name: "restaurant" + ' restaurant', address: address_string, username: Faker::Internet.user_name, email: Faker::Internet.email, password: 'password').menu_items.create(FactoryGirl.attributes_for(:menu_item))
+Restaurant.create(name: "restaurant" + ' restaurant', address: address_string, username: "restaurant", email: Faker::Internet.email, password: 'password').menu_items.create(FactoryGirl.attributes_for(:menu_item))
 
 10.times {FactoryGirl.create(:user)}
 
