@@ -14,15 +14,21 @@
   <h3>Unredeemed Gifts</h3>
    <ul>
       <% @unredeemed_gifts.each do |gift| %>
-        <b>Receiver</b>:
-        <%= gift.receiver.email %>...
-        Meal: <%=gift.name %>...
-        <%= form_for gift do |f| %>
-          <%= f.submit "redeem" %>
-        <% end%>
+        <li>
+        <% if gift.receiver %>
+          <%= form_for gift do |f| %>
+            <%= f.submit "redeem" %>
+          <% end%>
+          <b>Receiver</b>:<%= gift.receiver.email %>...
+        <% else%>
+          <b>Receiver</b>:<%= gift.phone %>(unregistered user)
+        <%end%>
+        Meal: <%=gift.name %>...<b>Secret Redemption Code</b>: <%= gift.passphrase %></li>
+
       <%end%>
     </ul>
 
+    <h3>Redeemed Gift Count: <%= @restaurant.redeemed_gifts.count %></h3>
 
 <% else %>
   <h2>Menu Items</h2>

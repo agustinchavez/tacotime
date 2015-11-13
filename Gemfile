@@ -40,6 +40,8 @@ gem 'devise'
 
 gem 'foundation-rails'
 
+gem 'braintree'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

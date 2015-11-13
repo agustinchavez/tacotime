@@ -6,6 +6,14 @@ class Gift < ActiveRecord::Base
 
   delegate :name, to: :menu_item
   delegate :restaurant, to: :menu_item
+  delegate :price, to: :menu_item
+
+  before_save :generate_passphrase
 
 
+  private
+
+  def generate_passphrase
+    self.passphrase = Faker::Company.buzzwords.shuffle[0..4].join(" ")
+  end
 end

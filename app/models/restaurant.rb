@@ -21,4 +21,12 @@ class Restaurant < ActiveRecord::Base
     self == current_restaurant
   end
 
+  def unredeemed_gifts
+   self.gifts.where('redeemed = ?', false)
+ end
+
+ def redeemed_gifts
+   self.gifts.where('redeemed = ?', true)
+ end
+
 end

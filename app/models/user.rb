@@ -25,16 +25,24 @@ class User < ActiveRecord::Base
     self == gift.receiver
   end
 
-  def find_associated_tacos
-   received_tacos << gift if gift = Gift.find_by(phone: phone)
- end
+  def unredeemed_gifts
+    self.received_tacos.where('redeemed = ?', false)
+  end
+
+  def redeemed_gifts
+    self.received_tacos.where('redeemed = ?', true)
+  end
+
+  def find_associated_coffees
+    received_tacos << gift if gift = Gift.find_by(phone: phone)
+  end
+
 
   private
 
 
-
-   def extract_username
-    self.email = self.email.split('@').first.downcase
+  def extract_username
+    self.email = self.email.split('@').first
   end
 
 end

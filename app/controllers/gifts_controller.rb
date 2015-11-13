@@ -33,7 +33,9 @@ class GiftsController < ApplicationController
   def create
     gift = current_user.given_tacos.build(gift_params)
     if gift.save
+      transaction = BraintreePayment.new(gift)
       text = TwilioTextSender.new(gift)
+      send_payment(transaction)
       text.send!
       redirect_to confirmation_path(gift)
     else
@@ -48,11 +50,12 @@ class GiftsController < ApplicationController
   def update
     find_gift
     if @gift.update_attributes(redeemed: true)
-      flash[:notice] = ["Meal Redeemed!"]
-      # some type of notice to the receiver
+      flash[:notice] = "Meal Redeemed!"
+      redeem_text = TwilioTextSender.new(@gift)
+      redeem_text.send!
       redirect_to restaurants_profile_path
     else
-      flash[:error] = ["Unable to redeem voucher"]
+      flash[:error] = "Unable to redeem voucher"
       redirect_to restaurants_profile_path
     end
   end
@@ -73,6 +76,23 @@ class GiftsController < ApplicationController
   end
 
   private
+
+    def send_payment(transaction)
+    result = transaction.send_payment!
+    if result.success?
+      @transaction_id = result.transaction.id
+      flash[:notice] = "Transaction successful. Your confirmation number is #{@transaction_id}."
+    elsif result.transaction
+      @processor_response_code = result.transaction.processor_response_code
+      @processor_response_text = result.transaction.processor_response_text
+      flash[:error] = "Error processing transaction:
+        code: #{@processor_response_code}
+        text: #{@processor_response_text}"
+    else
+      errors = result.errors
+      flash[:error] = "Errors processing transaction: #{errors}"
+    end
+  end
 
     def find_gift
       @gift = Gift.find_by(id: params[:id])
