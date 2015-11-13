@@ -11,8 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = current_user
-    @unredeemed_gifts = @user.received_tacos.where('redeemed = ?', false)
-    @redeemed_gifts = @user.received_tacos.where('redeemed = ?', true)
+
   end
 
   # GET /users/new

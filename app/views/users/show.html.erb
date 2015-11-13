@@ -2,15 +2,15 @@
 
 <br><h1><%= @user.first_name %>'s Profile</h1>
 <h2>Your Un-Redeemed Gifts </h2>
-<ul><% @unredeemed_gifts.each do |gift| %>
-  <li><b>Meal</b>: <%= gift.name %>...<b>Giver</b>: <%= gift.giver.email %>...<b>Restaurant</b>: <%= gift.menu_item.restaurant.name %></li>
+<ul><% @user.unredeemed_gifts.each do |gift| %>
+  <li><b>Meal</b>: <%= gift.name %>...<b>Giver</b>: <%= gift.giver.email %>...<b>Restaurant</b>: <%= gift.menu_item.restaurant.name %>...<b>Secret Redemption Code</b>: <%= gift.passphrase %></li>
   <%end%>
 </ul>
 
 
 <br><h2> Your Redeemed Gifts </h2>
-<ul><% @redeemed_gifts.each do |gift| %>
-  <li><b>MEal:</b> <%= gift.name %>...<b>Giver:</b> <%= gift.giver.email %>...<b>Restaurant:</b> <%= gift.menu_item.restaurant.name %></li>
+<ul><% @user.redeemed_gifts.each do |gift| %>
+  <li><b>Meal:</b> <%= gift.name %>...<b>Giver:</b> <%= gift.giver.email %>...<b>Restaurant:</b> <%= gift.menu_item.restaurant.name %></li>
 <%end%>
 
 </ul>

@@ -1,10 +1,17 @@
-<h1>Thanks for sending the gift!</h1>
+<% if flash[:error] %>
+  <h1><%=flash[:error]%></h1>
+<% elsif flash[:notice] %>
+  <h1><%=flash[:notice]%></h1>
 
-<h2>Here are the details of your purchase: </h2>
+  <h2>Here are the details of your purchase: </h2>
 
+  <% if @gift.receiver %>
+    <p>Sent To: <%=@gift.receiver.email%></p>
+  <% else %>
+    <p>Sent To: <%=@gift.phone%></p>
+  <% end %>
 
-<p>Sent To: <%=@gift.receiver.email%></p>
+  <p>Good for one <%=@gift.name%> at <%=@restaurant.name%></p>
 
-<p>Good for one <%=@gift.name%> at <%=@restaurant.name%></p>
-
-<p>Pick up at: <%=@restaurant.address %></p>
+  <p>Pick up at: <%=@restaurant.address %></p>
+<% end %>

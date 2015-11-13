@@ -12,8 +12,8 @@ class RestaurantsController < ApplicationController
   def show
     @restaurant = Restaurant.find_by(id: params[:id])
     @restaurant = current_restaurant unless @restaurant
+    @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
-    @unredeemed_gifts = @restaurant.gifts.where('redeemed = ?', false)
   end
 
   # GET /restaurants/new
