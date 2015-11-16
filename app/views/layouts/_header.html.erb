@@ -1,8 +1,36 @@
-<nav class="header-nav">
-  <ul>
-    <%= render 'devise/shared/registration_items' %>
-    <%= render 'devise/shared/login_items' %>
-    <li><%= link_to "Register as a Restaurant", new_restaurant_registration_path, class: "button" %></li>
-    <li><%= link_to "Login as a Restaurant", restaurant_session_path, class: "button" %></li>
-  <ul>
-</nav>
+<div class="row">
+  <div class="large-12 columns">
+
+    <nav class="top-bar" data-topbar>
+      <ul class="title-area">
+
+        <li class="name">
+          <h1>
+            <a href="/">
+              TacoTime
+            </a>
+          </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+      </ul>
+
+      <section class="top-bar-section">
+        <ul class="left">
+          <% if user_signed_in? %>
+            <li><a href="#"><%= link_to "Settings", edit_user_registration_path %></a></li>
+            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+          <% elsif restaurant_signed_in? %>
+            <li><a href="#"><%= link_to "Profile", edit_restaurant_registration_path %></a></li>
+            <li><a href="#"><%= link_to "Log Out", restaurants_logout_path, method: :delete %></a></li>
+          <% else %>
+            <li><%= render 'devise/shared/registration_items' %></a></li>
+            <li><%= render 'devise/shared/login_items' %></a></li>
+            <li><%= link_to "Register as a Restaurant", new_restaurant_registration_path, class: "button" %></li>
+            <li><%= link_to "Login as a Restaurant", restaurant_session_path, class: "button" %></li>
+          <% end %>
+        </ul>
+      </section>
+    </nav>
+
+  </div>
+</div>
