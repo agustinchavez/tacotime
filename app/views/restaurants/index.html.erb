@@ -1,25 +1,58 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class='show-for-medium-up medium-12 columns'>
+  <ul class="example-orbit" data-orbit>
+    <li>
+      <%= image_tag "restaurant_busy.jpg", class:"banner"%>
+      <div class="orbit-caption">
+        Step 1. Choose a Restaurant
+      </div>
+    </li>
+    <li class="active">
+      <%= image_tag "tacos-de-cabeza.jpg", class:"banner"%>
+      <div class="orbit-caption">
+       Step 2. Buy a meal for a friend
+      </div>
+    </li>
+    <li>
+      <%= image_tag "chef.jpg", class:"banner"%>
+      <div class="orbit-caption">
+        Step 3. Your friend gets to pick up the meal from the restaurant :)
+      </div>
+    </li>
+  </ul>
+  </div>
+</div>
 
-<h1>Listing Restaurants</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class='row'>
+  <div class='small-12 columns'>
+    <h1>All restaurants</h1>
+  </div>
+</div>
 
-  <tbody>
+<div class='row'>
+  <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
     <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%= link_to 'Show', restaurant %></td>
-        <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-        <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><li><%= render @restaurants %></li></td>
-      </tr>
+    <li><figure>
+      <%= link_to image_tag("http://i.dailymail.co.uk/i/pix/2014/08/05/1407225932091_wps_6_SANTA_MONICA_CA_AUGUST_04.jpg"), restaurant %>
+      <figcaption>
+        <h4><%= restaurant.name %></h4>
+        <span>
+          <% if restaurant.neighborhood %>
+            <%= link_to restaurant.neighborhood, restaurant_neighborhood_path(restaurant)%>
+          <% end %>
+          <% if restaurant.city %>
+            <%= link_to restaurant.city, restaurant_city_path(restaurant)%>
+          <% end %>
+        </span>
+        <br>
+      </figcaption>
+    </figure></li>
     <% end %>
-  </tbody>
-</table>
-<br>
+
+  </ul>
+</div>
+
 
 <%= link_to 'New Restaurant', new_restaurant_path %>
+<li><%= render @restaurants %></li>

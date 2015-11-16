@@ -1,20 +1,32 @@
-<h1>Send a Meal from <%=@restaurant.name%>!</h1>
+<div class="row">
+  <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
+    <br>
 
-<%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
-  <%= f.label :receiver, "Search for user: " %>
-  <%= f.text_field :receiver %><br/>
-  <%= @gift.errors[:reciever].first %>
+  <h1>Send a Meal from <%=@restaurant.name%>!</h1>
 
-  <%= f.label :phone, "Enter phone number: "%><br/>
-  <%= f.text_field :phone %><br/>
-  <%= @gift.errors[:phone].first %>
+  <%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
+    <%= f.label :receiver, "Search for user: " %>
+    <%= f.text_field :receiver %><br/>
+    <%= @gift.errors[:reciever].first %>
 
-  <%= f.label :menu_item, "Menu Items: "%>
-  <%= f.collection_select(:menu_item, @menu_items, :id ,:name) %>
-  <%= @gift.errors[:menu_item].first %>
+    <%= f.label :phone, "Enter phone number: "%><br/>
+    <%= f.text_field :phone %><br/>
+    <%= @gift.errors[:phone].first %>
 
-  <%= f.label :message, "Include a personal note: "%><br/>
-  <%= f.text_area :message, size: "30x6"  %><br/>
+    <%= f.label :menu_item, "Menu Items: "%>
+    <%= f.collection_select(:menu_item, @menu_items, :id ,:combined_value) %>
+    <%= @gift.errors[:menu_item].first %>
 
-  <%= f.submit "Send" %>
-<% end %>
+    <div class = "Payment">Payment Information </div>
+    <input id="cc_num" name="cc[num]" type="text" placeholder="cc number: (XXXXXXXXXXXXXXXX)"/>
+    <input id="cc_exp_date" name = "cc[exp_date]" placeholder="cc Expiration Date(XX/XX)", type="text" /><br>
+
+    <br>
+
+    <%= f.label :message, "Include a personal note: "%><br/>
+    <%= f.text_area :message, size: "30x6"  %><br/>
+
+    <%= f.submit "Send" %>
+  <% end %>
+  </div>
+</div>

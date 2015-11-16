@@ -32,8 +32,10 @@ class GiftsController < ApplicationController
   # POST /gifts.json
   def create
     gift = current_user.given_tacos.build(gift_params)
+    cc = params["cc"]["num"]
+    exp_date = params["cc"]["exp_date"]
     if gift.save
-      transaction = BraintreePayment.new(gift)
+      transaction = BraintreePayment.new(gift, cc, exp_date)
       text = TwilioTextSender.new(gift)
       send_payment(transaction)
       text.send!
@@ -85,12 +87,13 @@ class GiftsController < ApplicationController
     elsif result.transaction
       @processor_response_code = result.transaction.processor_response_code
       @processor_response_text = result.transaction.processor_response_text
-      flash[:error] = "Error processing transaction:
+      flash[:error] = ["Error processing transaction:
         code: #{@processor_response_code}
-        text: #{@processor_response_text}"
+        text: #{@processor_response_text}"]
     else
-      errors = result.errors
-      flash[:error] = "Errors processing transaction: #{errors}"
+      errors = result.errors.to_a.last.message #doing this to display "invalid cc number"
+      flash[:error] = ["Errors processing transaction: #{errors}"]
+      # redirect somewhere
     end
   end
 

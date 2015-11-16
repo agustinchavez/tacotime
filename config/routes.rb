@@ -9,14 +9,18 @@ Rails.application.routes.draw do
   get '/restaurants/login' => 'restaurant_sessions#new'
   get '/restaurants/profile' => 'restaurants#show'
 
-  resources :restaurants
-  resources :menu_items
-
-
-   resources :restaurants, only: [:index, :show] do
-    resources :menu_items, only: [:destroy, :create, :update]
+  resources :restaurants, only: [:index, :show] do
+    get '/city' => 'restaurants#city'
+    get '/neighborhood' => 'restaurants#neighborhood'
     resources :gifts, only: [:new, :create, :update]
   end
+
+
+  resources :menu_items, only: [:destroy, :create, :update]
+  resources :users, only: [:create]
+  resources :gifts, only: [:show, :update]
+
+
 
   get '/login' => 'user_sessions#new'
   post '/users/sessions' => 'user_sessions#create'
@@ -28,8 +32,7 @@ Rails.application.routes.draw do
   post '/restaurants/sessions' => 'restaurant_sessions#create'
   delete '/restaurants/logout' => 'restaurant_sessions#destroy'
 
-  resources :users, only: [:create]
-  resources :gifts, only: [:show]
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

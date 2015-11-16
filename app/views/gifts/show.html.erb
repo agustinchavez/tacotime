@@ -7,6 +7,8 @@
 
 <p>Good for one <%=@gift.name%> at <%=@restaurant.name%></p>
 
+<p>Value: <%= @gift.price %>
+
 <p>Pick up at: <%=@restaurant.address %></p>
 
 <%= link_to 'Edit', edit_gift_path(@gift) %> |

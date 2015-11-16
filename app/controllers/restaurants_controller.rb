@@ -1,10 +1,9 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
 
   # GET /restaurants
   # GET /restaurants.json
   def index
-    @restaurants = Restaurant.all
+    @restaurant = Restaurant.all
   end
 
   # GET /restaurants/1
@@ -14,6 +13,18 @@ class RestaurantsController < ApplicationController
     @restaurant = current_restaurant unless @restaurant
     @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
+  end
+
+  def city
+    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
+    @restaurants = @restaurant.filter_by_city
+    render :index
+  end
+
+  def neighborhood
+    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
+    @restaurants = @restaurant.filter_by_neighborhood
+    render :index
   end
 
   # GET /restaurants/new
@@ -65,14 +76,14 @@ class RestaurantsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def restaurant_params
-      params[:restaurant]
-    end
+    # # Use callbacks to share common setup or constraints between actions.
+    # def set_restaurant
+    #   @restaurant = Restaurant.find(params[:id])
+    # end
+
+    # # Never trust parameters from the scary internet, only allow the white list through.
+    # def restaurant_params
+    #   params[:restaurant]
+    # end
 end

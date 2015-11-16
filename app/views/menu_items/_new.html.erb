@@ -7,5 +7,5 @@
   <%= f.text_field :price, value: @menu_item.price %>
   <%= @menu_item.errors[:price].first %>
 
-  <%= f.submit "Add new item" %>
+  <%= f.submit "Add new item", :class=>"button tiny round" %>
 <% end %>
