@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113155356) do
+ActiveRecord::Schema.define(version: 20151116231417) do
 
   create_table "gifts", force: :cascade do |t|
     t.integer  "giver_id"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20151113155356) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "city"
+    t.string   "neighborhood"
   end
 
   add_index "restaurants", ["email"], name: "index_restaurants_on_email", unique: true
