@@ -39,7 +39,11 @@ gem 'devise'
 
 gem 'foundation-rails', '~> 5.5.0.0'
 
+gem 'factory_girl_rails'
+
 gem 'braintree'
+
+gem 'chosen-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -58,7 +62,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails'
   gem 'simplecov', :require => false
   gem 'shoulda-matchers'
   gem 'capybara'

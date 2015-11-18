@@ -6,7 +6,7 @@
   <h2>Here are the details of your purchase: </h2>
 
   <% if @gift.receiver %>
-    <p>Sent To: <%=@gift.receiver.email%></p>
+    <p>Sent To: <%=@gift.receiver.full_name%></p>
   <% else %>
     <p>Sent To: <%=@gift.phone%></p>
   <% end %>

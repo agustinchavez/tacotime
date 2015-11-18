@@ -1,9 +1,9 @@
 class BraintreePayment
 
-  def initialize(gift, cc, exp_date)
+  def initialize(gift, credit_card)
     configure_environment
     @gift = gift
-    @credit_card = CreditCard.new({num: cc, exp: exp_date}) # hardcoded for testing
+    @credit_card = credit_card
   end
 
   def configure_environment

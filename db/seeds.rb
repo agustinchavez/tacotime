@@ -8,7 +8,7 @@
 
 User.create(first_name:"User",last_name:"Mann", password: "password", email:"fake@example.com", phone:"1231231234")
 
-10.times {FactoryGirl.create(:user)}
+25.times {FactoryGirl.create(:user)}
 
 c = Restaurant.create(name: "Nuevo Leon Restaurant", username: "cafe", address: "1515 W 18th St Chicago, IL 60608", email: "restaurant@example.com", password: 'password', neighborhood: "Pilsen")
 5.times { c.menu_items.create(FactoryGirl.attributes_for(:menu_item)) }
