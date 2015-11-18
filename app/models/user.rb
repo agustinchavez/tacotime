@@ -17,9 +17,7 @@ class User < ActiveRecord::Base
   validates_length_of :phone, :is => 10
   validates_format_of :phone, with: /\d{10}/, message: "is not in the correct format"
 
-  def reward
-    ##what will this return?
-  end
+
 
   def received_taco?(gift)
     self == gift.receiver
@@ -33,10 +31,14 @@ class User < ActiveRecord::Base
     self.received_tacos.where('redeemed = ?', true)
   end
 
-  def find_associated_coffees
-    received_tacos << gift if gift = Gift.find_by(phone: phone)
+  def find_associated_tacos
+    gift = Gift.find_by(phone: phone)
+    received_tacos << gift if gift
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   private
 

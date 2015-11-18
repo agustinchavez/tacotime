@@ -1,15 +1,14 @@
-<p id="notice"><%= notice %></p>
+<h1>Voucher</h1>
 
-<h1>Taco Voucher</h1>
-
-<p>From: <%=@gift.giver.email%></p>
-<p>To: <%=@gift.receiver.email%></p>
+<p>From: <%=@gift.giver.username%></p>
+<p>To: <%=@gift.receiver.username%></p>
 
 <p>Good for one <%=@gift.name%> at <%=@restaurant.name%></p>
 
 <p>Value: <%= @gift.price %>
 
 <p>Pick up at: <%=@restaurant.address %></p>
+
 
 <%= link_to 'Edit', edit_gift_path(@gift) %> |
 <%= link_to 'Back', gifts_path %>
