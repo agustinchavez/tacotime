@@ -4,6 +4,11 @@ class RestaurantsController < ApplicationController
   # GET /restaurants.json
   def index
     @restaurant = Restaurant.all
+    if request.xhr?
+      render @restaurants
+    else
+      render :index
+    end
   end
 
   # GET /restaurants/1
@@ -15,25 +20,7 @@ class RestaurantsController < ApplicationController
     @menu_items = @restaurant.menu_items
   end
 
-  def city
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    @restaurants = @restaurant.filter_by_city
-    if request.xhr?
-      render @restaurants
-    else
-      render :index
-    end
-  end
 
-  def neighborhood
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    @restaurants = @restaurant.filter_by_neighborhood
-    if request.xhr?
-      render @restaurants
-    else
-      render :index
-    end
-  end
 
   # GET /restaurants/new
   def new
@@ -63,15 +50,13 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1
   # PATCH/PUT /restaurants/1.json
   def update
-    respond_to do |format|
-      if @restaurant.update(restaurant_params)
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully updated.' }
-        format.json { render :show, status: :ok, location: @restaurant }
-      else
-        format.html { render :edit }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
-      end
+    @restaurant = current_restaurant
+    if params[:restaurant]
+      @restaurant.update_attributes(params[:restaurant])
+    else
+      flash[:error] = ["Something Went Wrong!"]
     end
+    render :show
   end
 
   # DELETE /restaurants/1
@@ -84,6 +69,25 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def city
+    if request.xhr?
+      @restaurants = Restaurant.filter_by_city(params[:tag])
+      render @restaurants
+    else
+      @restaurants = Restaurant.all
+      render :index
+    end
+  end
+
+  def neighborhood
+    if request.xhr?
+      @restaurants = Restaurant.filter_by_neighborhood(params[:tag])
+      render @restaurants
+    else
+      @restaurants = Restaurant.all
+      render :index
+    end
+  end
 
     # # Use callbacks to share common setup or constraints between actions.
     # def set_restaurant
