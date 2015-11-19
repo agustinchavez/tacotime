@@ -13,6 +13,7 @@ class Restaurant < ActiveRecord::Base
 
   validates :address, length: {maximum: 150}
 
+
   def owns_item?(menu_item)
     self == menu_item.restaurant
   end
@@ -29,12 +30,15 @@ class Restaurant < ActiveRecord::Base
    self.gifts.where('redeemed = ?', true)
  end
 
- def filter_by_city
-    Restaurant.all.where(city: self.city)
+  def filter_by_city
+      Restaurant.all.where(city: self.city)
   end
 
   def filter_by_neighborhood
     Restaurant.all.where(neighborhood: self.neighborhood)
   end
+
+
+
 
 end

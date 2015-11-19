@@ -32,17 +32,20 @@ class GiftsController < ApplicationController
   # POST /gifts
   # POST /gifts.json
   def create
+    restaurant = Restaurant.find_by(id: params[:restaurant_id])
     gift = current_user.given_tacos.build(gift_params)
-    # prepare_and_send_payment
+    gift.assign_menu_receiver_phone(params)
+
     cc = CreditCard.new(params["cc"])
     transaction = BraintreePayment.new(gift, cc)
 
-    if gift.save && send_payment(transaction)
+    if gift.save && transaction.send_payment(flash)
       text = TwilioTextSender.new(gift)
       text.send!
       redirect_to confirmation_path(gift)
     else
-      redirect_to new_cafe_gift_path(@restaurant)
+      flash[:error] = gift.errors.full_messages
+      redirect_to new_restaurant_gift_path(restaurant)
     end
 
   end
@@ -79,24 +82,7 @@ class GiftsController < ApplicationController
 
   private
 
-    def send_payment(transaction)
-    result = transaction.send_payment!
-    if result.success?
-      @transaction_id = result.transaction.id
-      flash[:notice] = "Transaction successful. Your confirmation number is #{@transaction_id}."
-    elsif result.transaction
-      @processor_response_code = result.transaction.processor_response_code
-      @processor_response_text = result.transaction.processor_response_text
-      flash[:error] = ["Error processing transaction:
-        code: #{@processor_response_code}
-        text: #{@processor_response_text}"]
-        return false
-    else
-      errors = result.errors.to_a.last.message
-      flash[:error] = ["Errors processing transaction: #{errors}"]
-      return false
-    end
-  end
+
 
     def find_gift
       @gift = Gift.find_by(id: params[:id])
@@ -114,7 +100,7 @@ class GiftsController < ApplicationController
       end
     end
 
-    def gift_basic_params
+    def gift_params
       params.require(:gift).permit(:message)
     end
 
@@ -122,10 +108,4 @@ class GiftsController < ApplicationController
       @gift = Gift.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def gift_params
-      receiver = User.find_by(email: params[:gift][:receiver])
-      menu_item = MenuItem.find_by(id: params[:gift][:menu_item])
-      gift_basic_params.merge(receiver: receiver, menu_item: menu_item)
-    end
 end

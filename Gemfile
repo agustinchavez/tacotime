@@ -36,14 +36,21 @@ gem 'rails_12factor'
 gem 'twilio-ruby', '~> 4.2.1'
 
 gem 'devise'
-
+# styles framework
 gem 'foundation-rails', '~> 5.5.0.0'
+#client side image upload support
+gem 'carrierwave'
+gem 'cloudinary'
 
 gem 'factory_girl_rails'
 
+gem 'ransack'
+#payment support
 gem 'braintree'
 
 gem 'chosen-rails'
+
+gem 'compass-rails', '~> 2.0.4'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -9,7 +9,13 @@ class Gift < ActiveRecord::Base
   delegate :price, to: :menu_item
 
   before_save :generate_passphrase
+  validates_presence_of :menu_item, :phone
 
+  def assign_menu_receiver_phone(params)
+    self.receiver = User.find_by(email: params[:gift][:receiver]) || User.find_by(phone: params[:gift][:phone])
+    self.menu_item = MenuItem.find_by(id: params[:gift][:menu_item])
+    self.phone = self.receiver.phone if self.receiver && self.phone.blank?
+  end
 
   private
 
