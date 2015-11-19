@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: do8btflov
+  api_key: '791554279489999'
+  api_secret: uqP8zSUJuLeFxkPyxqqAq2y8sLs
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: do8btflov
+  api_key: '791554279489999'
+  api_secret: uqP8zSUJuLeFxkPyxqqAq2y8sLs
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: do8btflov
+  api_key: '791554279489999'
+  api_secret: uqP8zSUJuLeFxkPyxqqAq2y8sLs
+  enhance_image_tag: true
+  static_image_support: false

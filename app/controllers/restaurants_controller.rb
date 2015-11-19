@@ -18,13 +18,21 @@ class RestaurantsController < ApplicationController
   def city
     @restaurant = Restaurant.find_by(id: params[:restaurant_id])
     @restaurants = @restaurant.filter_by_city
-    render :index
+    if request.xhr?
+      render @restaurants
+    else
+      render :index
+    end
   end
 
   def neighborhood
     @restaurant = Restaurant.find_by(id: params[:restaurant_id])
     @restaurants = @restaurant.filter_by_neighborhood
-    render :index
+    if request.xhr?
+      render @restaurants
+    else
+      render :index
+    end
   end
 
   # GET /restaurants/new
