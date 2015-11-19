@@ -13,6 +13,7 @@ class Restaurant < ActiveRecord::Base
 
   validates :address, length: {maximum: 150}
 
+  mount_uploader :picture, PictureUploader
 
   def owns_item?(menu_item)
     self == menu_item.restaurant
