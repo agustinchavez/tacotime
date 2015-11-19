@@ -25,34 +25,11 @@
 
 
 <div class='row'>
-  <div class='small-12 columns'>
-    <h1>All restaurants</h1>
-  </div>
-</div>
-
-<div class='row'>
-  <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
-    <% @restaurants.each do |restaurant| %>
-    <li><figure>
-      <%= link_to image_tag("http://i.dailymail.co.uk/i/pix/2014/08/05/1407225932091_wps_6_SANTA_MONICA_CA_AUGUST_04.jpg"), restaurant %>
-      <figcaption>
-        <h4><%= restaurant.name %></h4>
-        <span>
-          <% if restaurant.neighborhood %>
-            <%= link_to restaurant.neighborhood, restaurant_neighborhood_path(restaurant)%>
-          <% end %>
-          <% if restaurant.city %>
-            <%= link_to restaurant.city, restaurant_city_path(restaurant)%>
-          <% end %>
-        </span>
-        <br>
-      </figcaption>
-    </figure></li>
-    <% end %>
-
+  <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 restaurants-container">
+    <%= render @restaurants %>
   </ul>
 </div>
 
 
 <%= link_to 'New Restaurant', new_restaurant_path %>
-<li><%= render @restaurants %></li>
+

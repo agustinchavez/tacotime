@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
 
   resources :menu_items, only: [:destroy, :create, :update]
-  resources :users, only: [:create]
+  resources :users, only: [:create, :edit, :update]
   resources :gifts, only: [:show, :update]
 
 

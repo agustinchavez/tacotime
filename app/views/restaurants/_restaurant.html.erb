@@ -1,5 +1,16 @@
-<h2><%= restaurant.name %></h2>
-<hr>
-<p><%= restaurant.address %></p>
-<br>
+<li><figure>
+  <%= link_to image_tag("http://i.dailymail.co.uk/i/pix/2014/08/05/1407225932091_wps_6_SANTA_MONICA_CA_AUGUST_04.jpg"), restaurant %>
+  <figcaption>
+    <h4><%= restaurant.name %></h4>
+    <span>
+      <% if restaurant.neighborhood %>
+        <%= link_to restaurant.neighborhood, restaurant_neighborhood_path(restaurant), class: "tag-container"%>
+      <% end %>
+      <% if restaurant.city %>
+        <%= link_to restaurant.city, restaurant_city_path(restaurant), class: "tag-container"%>
+      <% end %>
+    </span>
+    <br>
+  </figcaption>
+</figure></li>
 <%= link_to 'select this restaurant', restaurant %>

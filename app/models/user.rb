@@ -8,14 +8,15 @@ class User < ActiveRecord::Base
   has_many :given_tacos, class_name: :Gift, foreign_key: :giver_id
   has_many :received_tacos, class_name: :Gift, foreign_key: :receiver_id
 
+  before_save :extract_username, :downcase_names
 
-  before_save :extract_username
 
   validates_presence_of :first_name, :last_name, :email, :phone
   validates :first_name, length: {maximum: 20}
   validates :last_name, length: {maximum: 20}
   validates_length_of :phone, :is => 10
   validates_format_of :phone, with: /\d{10}/, message: "is not in the correct format"
+  mount_uploader :picture, PictureUploader
 
 
 
@@ -44,7 +45,12 @@ class User < ActiveRecord::Base
 
 
   def extract_username
-    self.email = self.email.split('@').first
+    self.email = self.email.split('@').first.downcase
+  end
+
+  def downcase_names
+    self.first_name = self.first_name.downcase
+    self.last_name = self.last_name.downcase
   end
 
 end
