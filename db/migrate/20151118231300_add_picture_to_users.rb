@@ -1,5 +1,5 @@
 class AddPictureToUsers < ActiveRecord::Migration
   def change
-    add_column :users, :picture, :string
+    add_column :restaurants, :picture, :string
   end
 end

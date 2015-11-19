@@ -24,6 +24,15 @@
 </div>
 
 
+<div class="row">
+  <div class='small-12 columns tags-topbar'>
+    <%= link_to "All", root_url, class: "tag-container"%>
+    <%= link_to "Chicago", cafes_city_path, class: "tag-container"%>
+    <%= link_to "Cicero", cafes_city_path, class: "tag-container"%>
+    <%= link_to "Berwyn", cafes_city_path, class: "tag-container"%>
+  </div>
+</div>
+
 <div class='row'>
   <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 restaurants-container">
     <%= render @restaurants %>

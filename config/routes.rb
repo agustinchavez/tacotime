@@ -8,10 +8,10 @@ Rails.application.routes.draw do
 
   get '/restaurants/login' => 'restaurant_sessions#new'
   get '/restaurants/profile' => 'restaurants#show'
+  post '/restaurants/city' => 'restaurants#city'
+  post '/restaurants/neighborhood' => 'restaurants#neighborhood'
 
-  resources :restaurants, only: [:index, :show] do
-    get '/city' => 'restaurants#city'
-    get '/neighborhood' => 'restaurants#neighborhood'
+  resources :restaurants, only: [:index, :show, :update] do
     resources :gifts, only: [:new, :create, :update]
   end
 
