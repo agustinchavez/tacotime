@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118231300) do
+ActiveRecord::Schema.define(version: 20151120001247) do
 
   create_table "gifts", force: :cascade do |t|
     t.integer  "giver_id"
     t.integer  "receiver_id"
     t.integer  "menu_item_id"
-    t.boolean  "redeemed",     default: false
+    t.boolean  "redeemed",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "message"
-    t.string   "passphrase"
+    t.boolean  "charitable",      default: false
+    t.string   "redemption_code"
   end
 
   create_table "menu_items", force: :cascade do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20151118231300) do
     t.string   "last_sign_in_ip"
     t.string   "city"
     t.string   "neighborhood"
+    t.string   "picture"
   end
 
   add_index "restaurants", ["email"], name: "index_restaurants_on_email", unique: true

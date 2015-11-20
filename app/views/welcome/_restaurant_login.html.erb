@@ -6,10 +6,10 @@
 
   <section class="popupBody">
     <%= form_for :restaurant_session, url: restaurants_sessions_path do |f| %>
-    <%= f.text_field :email, placeholder: "Email"%>
-    <%= f.password_field :password, placeholder: "Password"%>
+    <%= f.text_field :email, placeholder: "Email", label: false%>
+    <%= f.password_field :password, placeholder: "Password", label: false%>
     <%= f.submit "Login", class: "button round" %>
     <% end %>
-    <p id="login-as-user">Log in as a user</p>
+    <label id="login-as-user" class="secondary label radius">Log in as a user</label>
   </section>
 </div>

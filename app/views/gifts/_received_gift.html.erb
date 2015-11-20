@@ -1,0 +1,3 @@
+<% @received_tacos.each do |gift| %>
+<li><%= link_to "#{gift.restaurant.name} (#{gift.name})", gift_path(gift), class: "gift" %></li>
+<%end%>

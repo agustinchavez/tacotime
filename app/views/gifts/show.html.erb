@@ -9,6 +9,8 @@
 
 <p>Pick up at: <%=@restaurant.address %></p>
 
+<p>Redemption Code: <%= @gift.redemption_code %>
+
 
 <%= link_to 'Edit', edit_gift_path(@gift) %> |
 <%= link_to 'Back', gifts_path %>

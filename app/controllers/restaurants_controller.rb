@@ -18,6 +18,11 @@ class RestaurantsController < ApplicationController
     @restaurant = current_restaurant unless @restaurant
     @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
+    if params[:search]
+      @unredeemed_gifts = @restaurant.search(params[:search]).order("created_at DESC")
+    else
+      @unredeemed_gifts = @restaurant.unredeemed_gifts
+    end
   end
 
 
