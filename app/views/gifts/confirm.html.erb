@@ -7,6 +7,8 @@
 
   <% if @gift.receiver %>
     <p>Sent To: <%=@gift.receiver.full_name%></p>
+  <% elsif @gift.charitable %>
+    <p>Sent To: some lucky person!</p>
   <% else %>
     <p>Sent To: <%=@gift.phone%></p>
   <% end %>
