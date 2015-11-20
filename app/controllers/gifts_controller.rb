@@ -1,7 +1,8 @@
 class GiftsController < ApplicationController
-  before_action :set_gift, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:show]
-  before_filter :authenticate_user, except: [:update]
+  before_filter :authenticate_user, except: [:update, :filter]
+  before_action :find_gift, except: [:new, :create, :filter]
+
 
 
   # GET /gifts
@@ -34,7 +35,7 @@ class GiftsController < ApplicationController
   def create
     restaurant = Restaurant.find_by(id: params[:restaurant_id])
     gift = current_user.given_tacos.build(gift_params)
-    gift.assign_menu_receiver_phone(params)
+    gift.assign_phone(params[:gift])
 
     cc = CreditCard.new(params["cc"])
     transaction = BraintreePayment.new(gift, cc)
@@ -64,6 +65,8 @@ class GiftsController < ApplicationController
       redirect_to restaurants_profile_path
     end
   end
+
+
 
   # DELETE /gifts/1
   # DELETE /gifts/1.json
@@ -101,7 +104,7 @@ class GiftsController < ApplicationController
     end
 
     def gift_params
-      params.require(:gift).permit(:message)
+      params.require(:gift).permit(:message, :phone, :charitable)
     end
 
     def set_gift

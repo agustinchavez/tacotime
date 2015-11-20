@@ -1,4 +1,4 @@
-function filter() {
+function initFilter() {
   $(".restaurants-container").on('click','.tag-container', function(e) {
     e.preventDefault();
     var url = $(this).attr('href');
@@ -24,7 +24,3 @@ function filter() {
   });
 };
 
-// put this in a separate file when ready for refactor
-$(document).ready(function() {
-  filter();
-});

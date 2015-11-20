@@ -13,6 +13,8 @@ class Restaurant < ActiveRecord::Base
 
   validates :address, length: {maximum: 150}
 
+  validates_uniqueness_of :email
+
   mount_uploader :picture, PictureUploader
 
   def owns_item?(menu_item)
@@ -31,15 +33,20 @@ class Restaurant < ActiveRecord::Base
    self.gifts.where('redeemed = ?', true)
  end
 
-  def filter_by_city
-      Restaurant.all.where(city: self.city)
+  def self.filter_by_city(tag)
+      self.all.where(city: tag)
   end
 
-  def filter_by_neighborhood
-    Restaurant.all.where(neighborhood: self.neighborhood)
+  def self.filter_by_neighborhood(tag)
+    self.all.where(neighborhood: tag)
   end
 
+  def charitable_gifts
+    gifts.where(charitable: true)
+  end
 
-
+  def search(search)
+    self.unredeemed_gifts.where("redemption_code LIKE ?", "%#{search}%")
+  end
 
 end
