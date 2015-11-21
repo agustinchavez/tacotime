@@ -27,7 +27,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'validates_email_format_of'
 
-gem 'phony_rails'
 
 gem 'faker'
 
@@ -45,6 +44,12 @@ gem 'cloudinary'
 
 gem 'factory_girl_rails'
 
+gem 'gon'
+
+gem 'yelp'
+
+gem 'figaro'
+
 gem 'ransack'
 #payment support
 gem 'braintree'
@@ -59,10 +64,10 @@ gem 'compass-rails', '~> 2.0.4'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'spring'
-end
+# group :development do
+#   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+#   gem 'spring'
+# end
 
 group :development, :test do
   gem 'rspec-rails'

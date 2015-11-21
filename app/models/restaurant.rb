@@ -15,7 +15,7 @@ class Restaurant < ActiveRecord::Base
 
   validates_uniqueness_of :email
 
-  mount_uploader :picture, PictureUploader
+
 
   def owns_item?(menu_item)
     self == menu_item.restaurant
