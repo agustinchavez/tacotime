@@ -1,4 +1,4 @@
-<div class="row">
+<div id="user_profile" class="row">
   <div class="large-12 columns">
     <br>
     <h1><%= @user.first_name %> <%= @user.last_name %></h1>
@@ -19,7 +19,7 @@
 
     <ul class="no-bullet">
       <li>email: <%= @user.email %></li>
-      <li>phone: <%= @user.phone %></li>
+      <li>phone:<%= @user.phone %></li>
     </ul>
 
     <div class="panel">
@@ -31,26 +31,26 @@
 </div>
 
 
-<div class="small-12 columns">
-  <div class="row">
-    <hr>
-    <%= link_to "given", "#", class: "profile-filter-tag" %>
-    <%= link_to "received", "#", class: "profile-filter-tag" %>
+<div class="row">
+  <div class="small-12 columns">
+
+  <ul class="accordion" data-accordion>
+    <li class="accordion-navigation">
+      <a href="#given">Given Gifts</a>
+      <div id="given" class="content active">
+        <%= render "gifts/given_gift" %>
+      </div>
+    </li>
+    <li class="accordion-navigation">
+      <a href="#received">Received Gifts</a>
+      <div id="received" class="content active">
+        <%= render "gifts/received_gift" %>
+      </div>
+    </li>
+  </ul>
+
   </div>
-
-
-  <br>
-  <div class="row">
-    <div class="given-tacos-container">
-    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 gifts-container">
-      <%= render "gifts/given_gift" %>
-    </ul>
-    </div>
-    <div class="received-tacos-container">
-    <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 gifts-container">
-      <%= render "gifts/received_gift" %>
-    </ul>
-    </div>
+</div>
   </div>
 </div>
 

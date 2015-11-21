@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       user.find_associated_tacos
       redirect_to root_path
     else
-      # render :new
+      flash[:reg_error]=user.errors.full_messages
       redirect_to root_path
     end
   end

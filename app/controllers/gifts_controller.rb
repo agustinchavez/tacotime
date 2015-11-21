@@ -1,7 +1,8 @@
 class GiftsController < ApplicationController
-  before_action :authorize_user, only: [:show]
-  before_filter :authenticate_user, except: [:update, :filter]
+  before_action :authenticate_user, except: [:update, :filter]
   before_action :find_gift, except: [:new, :create, :filter]
+  before_action :authorize_user, only: [:show]
+
 
 
 
@@ -36,15 +37,13 @@ class GiftsController < ApplicationController
     restaurant = Restaurant.find_by(id: params[:restaurant_id])
     gift = current_user.given_tacos.build(gift_params)
     gift.assign_phone(params[:gift])
-
-    cc = CreditCard.new(params["cc"])
-    transaction = BraintreePayment.new(gift, cc)
-
-    if gift.save && transaction.send_payment(flash)
-      text = TwilioTextSender.new(gift)
-      text.send!
-      redirect_to confirmation_path(gift)
+    if gift.save
+      session[:tmp_id] = nil
+      session[:tmp_id] = gift.id
+      session[:tmp_price] = gift.price
+      redirect_to new_transaction_path
     else
+      gift.destroy
       flash[:error] = gift.errors.full_messages
       redirect_to new_restaurant_gift_path(restaurant)
     end
@@ -57,8 +56,7 @@ class GiftsController < ApplicationController
     find_gift
     if @gift.update_attributes(redeemed: true)
       flash[:notice] = "Meal Redeemed!"
-      redeem_text = TwilioTextSender.new(@gift)
-      redeem_text.send!
+      TwilioTextSender.send!(@gift)
       redirect_to restaurants_profile_path
     else
       flash[:error] = "Unable to redeem voucher"
@@ -91,10 +89,10 @@ class GiftsController < ApplicationController
       @gift = Gift.find_by(id: params[:id])
     end
 
-    def authorize_user
-      find_gift
-      redirect_to root_path unless current_user.received_taco?(@gift)
-    end
+  # def authorize_user
+  #   find_gift
+  #   redirect_to root_path unless current_user.received_taco?(@gift)
+  # end
 
     def authenticate_user
       unless current_user

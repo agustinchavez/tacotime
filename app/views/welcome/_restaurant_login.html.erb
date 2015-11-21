@@ -4,6 +4,13 @@
     <div class="modal_close"><%= image_tag("grey-close.png") %></i></div>
   </header>
 
+
+   <div id="restaurant-login-errors" class="popupErrors">
+    <% if flash[:restaurant_error] %>
+        <p><%= flash[:restaurant_error] %></p>
+    <% end %>
+  </div>
+
   <section class="popupBody">
     <%= form_for :restaurant_session, url: restaurants_sessions_path do |f| %>
     <%= f.text_field :email, placeholder: "Email", label: false%>

@@ -6,11 +6,12 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "TacoTime" %></title>
 
+    <%= include_gon %>
     <%= stylesheet_link_tag    'application' %>
     <%= javascript_include_tag "vendor/modernizr"%>
     <%= javascript_include_tag "application"%>
     <%= csrf_meta_tags %>
-
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
 
   </head>
 
@@ -30,5 +31,7 @@
 
     <%= render "layouts/footer" %>
 
+
   </body>
+  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 </html>
