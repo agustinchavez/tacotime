@@ -1,30 +1,36 @@
-<div class="row">
+<div id="restaurant_index" class="row">
+
   <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
     <br>
     <h1>Send a meal from <%=@restaurant.name%>!</h1>
 
     <%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
     <%= f.label :receiver, "Search for user: " %>
-    <%= f.collection_select(:receiver, @receivers, :id, :combined_value, include_blank: true) %>
+    <%= f.collection_select(:receiver, @receivers, :id, :combined_value, include_blank: true, label:false) %>
     <%= @gift.errors[:reciever].first %>
 
     <p>OR</p>
 
-    <%= f.text_field :phone, placeholder: "Enter phone number", maxlength: "10" %><br/>
+    <%= f.text_field :phone, placeholder: "Enter phone number", maxlength: "10", label:false %><br/>
     <%= @gift.errors[:phone].first %>
 
     <p>OR</p>
-    <%= f.check_box :charitable %>
+    <%= f.check_box :charitable, label:false %>
     <%= f.label :charitable, "Charity time! Send a meal to someone who needs it." %>
 
-    <%= f.collection_select(:menu_item, @menu_items, :id ,:combined_value, include_blank: true)  %>
+    <%= f.collection_select(:menu_item, @menu_items, :id ,:combined_value, include_blank: true, label:false)  %>
     <%= @gift.errors[:menu_item].first %>
 
     <%= f.text_area :message, size: "30x6", placeholder: "Include a personal note!"  %><br/>
     Payment Information
     <%= fields_for :cc do |cc| %>
-      <%= cc.text_field :num, placeholder: "cc number: (XXXXXXXXXXXXXXXX)", maxlength: "16"%>
-      <%= cc.text_field :exp_date, placeholder: "cc expiration date: (MM/YY)", maxlength: "5"%>
+      <%= cc.text_field :num, placeholder: "cc number: (XXXXXXXXXXXXXXXX)", maxlength: "16", label:false%>
+      <%= cc.text_field :exp_date, placeholder: "cc expiration date: (MM/YY)", maxlength: "5", label:false%>
+
+    <%end%>
+    <%= fields_for :cc_dummy do |dummy| %>
+        <%= dummy.text_field :cvv, placeholder: "CVV code", maxlength: "4", label: false%>
+        <%= dummy.text_field :zip, placeholder: "Billing Zip Code", maxlength: "5", label: false%>
     <%end%>
 
     <br>
