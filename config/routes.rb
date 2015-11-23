@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   post '/restaurants/city' => 'restaurants#city'
   post '/restaurants/neighborhood' => 'restaurants#neighborhood'
 
-  resources :restaurants, only: [:index, :show, :update] do
+  resources :restaurants, only: [:index, :show] do
     resources :gifts, only: [:new, :create, :update]
   end
 
 
   resources :menu_items, only: [:destroy, :create, :update]
-  resources :users, only: [:create, :edit, :update]
+  resources :users, only: [:create]
   resources :gifts, only: [:show, :update]
   resources :transactions, only: [:new, :create]
 
@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   get '/profile' => 'users#show'
   get '/register' => 'users#new'
   get '/confirmation/:id' => 'gifts#confirm', as: "confirmation"
+
+  get '/redemption_confirmation/:id' => 'gifts#confirm_redemption', as: "redemption_confirmation"
 
   post '/restaurants/sessions' => 'restaurant_sessions#create'
   delete '/restaurants/logout' => 'restaurant_sessions#destroy'

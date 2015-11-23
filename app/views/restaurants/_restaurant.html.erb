@@ -1,7 +1,7 @@
 <li><figure>
-  <%= link_to image_tag(restaurant.picture), restaurant %>
+  <%= link_to cl_image_tag(restaurant.picture, :width => 500, :height => 400, :crop => :fill ), restaurant %>
   <figcaption>
-    <h4><%= restaurant.name %></h4>
+    <h4><%= link_to restaurant.name, restaurant %></h4>
     <span>
       <% if restaurant.neighborhood %>
         <%= link_to restaurant.neighborhood, restaurant_neighborhood_path, class: "tag-container"%>

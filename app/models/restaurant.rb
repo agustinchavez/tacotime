@@ -15,6 +15,7 @@ class Restaurant < ActiveRecord::Base
 
   validates_uniqueness_of :email
 
+  before_save :generate_slug
 
 
   def owns_item?(menu_item)
@@ -45,8 +46,22 @@ class Restaurant < ActiveRecord::Base
     gifts.where(charitable: true)
   end
 
+  def unredeemed_charitable_gifts
+    gifts.where(charitable: true, redeemed: false)
+  end
+
   def search(search)
     self.unredeemed_gifts.where("redemption_code LIKE ?", "%#{search}%")
+  end
+
+  def to_param
+    slug
+  end
+
+  private
+
+  def generate_slug
+    self.slug = self.name.parameterize
   end
 
 end

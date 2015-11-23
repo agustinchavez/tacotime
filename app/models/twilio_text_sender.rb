@@ -14,7 +14,11 @@ module TwilioTextSender
   end
 
   def send!(gift)
-    gift.redeemed ? send_text(gift, redeem_message) : send_text(gift, receive_message(gift))
+    if gift.redeemed
+      return send_text(gift, redeem_message)
+    else
+      return send_text(gift, receive_message(gift))
+    end
   end
 
   def send_text(gift, text_body)
@@ -25,8 +29,10 @@ module TwilioTextSender
         to: gift.phone,
         body: text_body
       })
+      return nil
     rescue Twilio::REST::RequestError => e
       puts "ERROR: #{e.message}"
+      return "Sorry! Something went wrong on our end and we were unable to send a notification SMS. Please let your friend know where to pick up their coffee!"
     end
   end
 
