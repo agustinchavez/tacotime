@@ -14,25 +14,22 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
-    @restaurant = Restaurant.find_by(id: params[:id])
+    # if request.xhr?
+      @restaurant = Restaurant.find_by_slug(params[:id])
+    # else
+      # @restaurant = Restaurant.find_by(id:params[:id])
+    # end
     @restaurant = current_restaurant unless @restaurant
     @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
-    @yelp = Yelp.client.search(@restaurant.address.gsub!("\n",' '), {term: @restaurant.name})
-      @yelp_image = @yelp.businesses.first.image_url.chomp('ms.jpg')+"o.jpg"
-      @yelp_rating = @yelp.businesses.first.rating_img_url_large
-      @yelp_review_count = @yelp.businesses.first.review_count
-      begin
-      @yelp_phone = @yelp.businesses.first.display_phone
-      rescue
-        @yelp_phone = "not found"
-      end
-      @yelp_link = @yelp.businesses.first.url
-    if params[:search]
+    @charitable_gifts = @restaurant.unredeemed_charitable_gifts
+    @unredeemed_gifts = @restaurant.unredeemed_gifts
+    if request.xhr?
       @unredeemed_gifts = @restaurant.search(params[:search]).order("created_at DESC")
-    else
-      @unredeemed_gifts = @restaurant.unredeemed_gifts
+      render :partial => "unredeemed_gift", collection: @unredeemed_gifts
     end
+
+
   end
 
 
@@ -64,15 +61,7 @@ class RestaurantsController < ApplicationController
 
   # PATCH/PUT /restaurants/1
   # PATCH/PUT /restaurants/1.json
-  def update
-    @restaurant = current_restaurant
-    if params[:restaurant]
-      @restaurant.update_attributes(params[:restaurant])
-    else
-      flash[:error] = ["Something Went Wrong!"]
-    end
-    render :show
-  end
+
 
   # DELETE /restaurants/1
   # DELETE /restaurants/1.json

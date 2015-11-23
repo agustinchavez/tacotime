@@ -10,16 +10,16 @@ $(document).ready(function() {
     initProfileToggle()
   }
 
-  if ($('#cafe_index').length) {
-    initRestaurantFilter();
-  }
-
-  if ($('#new_coffee').length) {
-    initDropdowns();
+  if ($('.tags-topbar').length) {
+    initCafeFilter();
   }
 
   if ($('#dropin').length) {
     initPayments();
+  }
+
+  if ($('.gift-form').length) {
+    initGiftFormDropdown();
   }
 
 });

@@ -14,10 +14,10 @@ class TransactionsController < ApplicationController
               payment_method_nonce: params[:payment_method_nonce])
     session[:tmp_price] = nil
     if @result.success?
-      flash[:notice] = "Your transaction was successful!"
+      flash[:notice] = "It's all good!"
       @gift = Gift.find_by(id: session[:tmp_id])
       session[:tmp_id] = nil
-      TwilioTextSender.send!(@gift)
+      flash[:twilio_error] = TwilioTextSender.send!(@gift)
       redirect_to confirmation_path(@gift)
     else
       flash[:alert] = "Something went wrong while processing your transaction. Please try again!"

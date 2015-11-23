@@ -1,0 +1,11 @@
+<ul class="vcard">
+  <li class="fn"><%= unredeemed_gift.name %></li>
+  <br>
+   <li>For: <%= unredeemed_gift.receiver.first_name%> </li>
+  <br>
+  <li><kbd><%= unredeemed_gift.redemption_code%></kbd></li>
+  <br>
+  <li class="locality"><%= form_for unredeemed_gift do |f| %>
+  <%= f.submit "redeem" %>
+  <% end%></li>
+</ul>

@@ -10,8 +10,9 @@
     <%= stylesheet_link_tag    'application' %>
     <%= javascript_include_tag "vendor/modernizr"%>
     <%= javascript_include_tag "application"%>
+    <%= favicon_link_tag("taco_logo.png") %>
     <%= csrf_meta_tags %>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico|Quicksand:400,300,700|Nunito:400,300,700' rel='stylesheet' type='text/css'>
 
   </head>
 
@@ -19,16 +20,7 @@
     <%= render "layouts/header" %>
     <%= render "welcome/register" %>
     <%= render "welcome/login" %>
-
-
-    <div class="row">
-      <div class="small-12 columns">
-
-        <%= yield %>
-      </div>
-    </div>
-
-
+    <%= yield %>
     <%= render "layouts/footer" %>
 
 

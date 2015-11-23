@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates :last_name, length: {maximum: 20}
   validates_length_of :phone, :is => 10
   validates_format_of :phone, with: /\d{10}/, message: "is not in the correct format"
-  mount_uploader :picture, PictureUploader
+
 
 
 
