@@ -1,26 +1,15 @@
-<div id="restaurant_index" class="row">
-  <div class='show-for-medium-up medium-12 columns'>
-  <ul class="example-orbit" data-orbit>
-    <li>
-      <%= image_tag "restaurant_busy.jpg", class:"banner"%>
-      <div class="orbit-caption">
-        Step 1. Choose a Restaurant
+<div class='show-for-medium-up'>
+    <header class="video-banner">
+      <div class="video-banner">
+         <section id="logo-text">
+          <p id="logo-title">TacoTime</p>
+          <p id="logo-subtitle">Send a meal to your friends!</p>
+        </section>
+          <video autoplay loop muted>
+          <source src="<%= asset_path('lets-eat.mp4') %>" type="video/mp4">
+          </video>
       </div>
-    </li>
-    <li class="active">
-      <%= image_tag "tacos-de-cabeza.jpg", class:"banner"%>
-      <div class="orbit-caption">
-       Step 2. Buy a meal for a friend
-      </div>
-    </li>
-    <li>
-      <%= image_tag "chef.jpg", class:"banner"%>
-      <div class="orbit-caption">
-        Step 3. Your friend gets to pick up the meal from the restaurant :)
-      </div>
-    </li>
-  </ul>
-  </div>
+  </header>
 </div>
 
 

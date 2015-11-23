@@ -6,81 +6,18 @@
 
 <div class="row">
   <div class="small-12 columns">
-    <%= image_tag(restaurant.picture, :class=>"square") %>
+    <%= cl_image_tag(@restaurant.picture, :width => 1000, :height => 400, :crop => :fill) %>
   </div>
 </div>
 
 
 <div class="row">
   <div class="small-12 columns">
-      <% if @restaurant.owner?(current_restaurant) %>
-      <div class="search">
-        <%= form_tag(@restaurant, :method => "get", id: "search-form") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search Redemption Codes" %>
-        <%= submit_tag "Search" %>
-        <% end %>
-      </div>
-
-    <div class="row">
-      <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
-        <br>
-        <h2 class="subheader">Menu Items</h2>
-          <ul class="no-bullet">
-            <%= render @menu_items %>
-          </ul>
-        <hr>
-          <h3 class="subheader">Add a new item</h3>
-            <%= render partial:"menu_items/new", locals:{menu_item: @menu_item, restaurant: @restaurant} %>
-        <hr>
-          <h3 class="subheader">Unredeemed Gifts</h3>
-            <ul>
-              <% @unredeemed_gifts.each do |gift| %>
-                <li>
-                <% if gift.receiver %>
-                  <%= form_for gift do |f| %>
-                    <%= f.submit "redeem" %>
-                  <% end%>
-                  <b>Receiver</b>:<%= gift.receiver.username %>...
-                <% else%>
-                  <b>Receiver</b>:<%= gift.phone %>(unregistered user)
-                <%end%>
-                Drink: <%=gift.name %>...<b>Secret Redemption Code</b>: <%= gift.redemption_code %></li>
-              <%end%>
-            </ul>
-
-            <hr>
-          <h3 class="subheader">Redeemed Gift Count: <%= @restaurant.redeemed_gifts.count %></h3>
-      </div>
-    </div>
+    <% if @restaurant.owner?(current_restaurant) %>
+    <%= render partial: "profile_view" %>
     <% else %>
-<hr>
-      <div class="row">
-        <div class="small-12 medium-6  columns">
-            <h2 class="subheader">Address</h2>
-            <ul class="vcard">
-              <li><%=@restaurant.address%></li>
-            </ul>
-            <div class="show-for-medium-up">
-                <div style="height:350px;width:100%" id="map"></div>
-                <input id="address" type="hidden" value="<%=@restaurant.address%>">
-            </div>
-        </div>
-          <div class="small-12 medium-6 columns">
-            <h2 class="subheader">Menu Items</h2>
-            <br><br><br>
-            <% @restaurant.menu_items.each do |item| %>
-            <ul class="accordion" data-accordion>
-              <li class="accordion-navigation">
-              <a><%=item.name%>......$<%=item.price%></a>
-              </li>
-            </ul>
-            <%end%>
-            <br>
-            <% end %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="small-12 columns">
-        <%= link_to "Buy a meal for a friend", new_restaurant_gift_path(@restaurant), :class=>"button expand" %>
-        </div>
-      </div>
+    <%= render partial: "user_view" %>
+    <% end %>
+  </div>
+</div>
+<br>

@@ -7,15 +7,20 @@ class MenuItem < ActiveRecord::Base
 
   validates :price, :format => { :with => /\A\d{1,4}(\.\d{0,2})?\z/ }, :numericality => {:greater_than => 0.99}
 
+  before_save :generate_slug
+
   def combined_value
     "#{self.name} ($#{self.price})"
   end
 
-  def formatted_price
-    if self.price.to_s.split(".")[1].length == 1
-      return self.price.to_s << "0"
-    else
-      return self.price.to_s
-    end
+  def to_param
+    slug
   end
+
+   private
+
+  def generate_slug
+    self.slug = self.name.parameterize
+  end
+
 end

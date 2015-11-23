@@ -1,19 +1,60 @@
+<div class="row">
+  <div class= "small-12 column">
 <% if flash[:error] %>
+
   <h1><%=flash[:error]%></h1>
-<% elsif flash[:notice] %>
-  <h1><%=flash[:notice]%></h1>
+  <hr>
 
-  <h2>Here are the details of your purchase: </h2>
+<% else  %>
 
-  <% if @gift.receiver %>
-    <p>Sent To: <%=@gift.receiver.full_name%></p>
-  <% elsif @gift.charitable %>
-    <p>Sent To: some lucky person!</p>
-  <% else %>
-    <p>Sent To: <%=@gift.phone%></p>
+  <% if flash[:notice] %>
+   <h1><%=flash[:notice]%></h1>
+   <hr>
   <% end %>
 
-  <p>Good for one <%=@gift.name%> at <%=@restaurant.name%></p>
+  <div class="success-panel text-center">
+    <p>The meal has been sent </p>
+  </div>
 
-  <p>Pick up at: <%=@restaurant.address %></p>
+  <% if @gift.charitable %>
+    <h4 class="text-center">
+    We will send an email to <span class="bold"><%=@restaurant.name%></span>, informing them of your gift.
+    <h4>
+  <% elsif @gift.receiver %>
+
+    <% if flash[:twilio_error] %>
+      <div class="fail-panel-yellow text-center">
+        <p><%=flash[:twilio_error]%></p>
+      </div>
+    <% else %>
+      <h4 class="text-center">
+      We will send an SMS to <span class="bold"><%=@gift.receiver.full_name%></span>
+      <h4>
+    <% end %>
+
+    <h4 class="text-center">
+    They may pick up their <span class="bold"><%=@gift.name%></span> at <span class="bold"><%=@restaurant.name%></span>.
+     <h4>
+  <% else %>
+    <% if flash[:twilio_error] %>
+      <div class="fail-panel-yellow text-center">
+        <p><%=flash[:twilio_error]%></p>
+      </div>
+    <% else %>
+      <h4 class="text-center">
+      We will send an SMS to <span class="bold"><%=format_phone(@gift.phone)%></span>
+      <h4>
+    <% end %>
+
+    <h4 class="text-center">
+    Your friend may pick up their <span class="bold"><%=@gift.name%></span> at <span class="bold"><%=@restaurant.name%></span>.
+     <h4>
+  <% end %>
 <% end %>
+</div>
+</div>
+<div class="row">
+  <div class= "small-2 columns small-centered">
+    <%= link_to "Back to Profile", @restaurant, :class =>"button" %>
+  </div>
+</div>

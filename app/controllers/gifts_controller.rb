@@ -1,15 +1,17 @@
 class GiftsController < ApplicationController
-  before_action :authenticate_user, except: [:update, :filter]
+
+  before_action :authenticate_user, except: [:update, :filter, :redemption_confirmation]
   before_action :find_gift, except: [:new, :create, :filter]
   before_action :authorize_user, only: [:show]
-
-
-
 
   # GET /gifts
   # GET /gifts.json
   def index
     @gifts = Gift.all
+  end
+
+  def redemption_confirmation
+    @restaurant = @gift.restaurant
   end
 
   # GET /gifts/1
@@ -21,10 +23,23 @@ class GiftsController < ApplicationController
 
   # GET /gifts/new
   def new
-    @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-    @menu_items = @restaurant.menu_items
-    @receivers = User.all
-    @gift = Gift.new
+    if request.xhr?
+      if !current_user
+        flash[:auth_error] = "Please login to send a meal."
+      else
+        @restaurant = Restaurant.find_by(id: params[:restaurant_id])
+        @menu_items = @restaurant.menu_items
+        @receivers = User.all
+        @gift = Gift.new
+     end
+
+    else
+      @restaurant = Restaurant.find_by_slug(params[:restaurant_id])
+      @menu_items = @restaurant.menu_items
+      @receivers = User.all
+      @gift = Gift.new
+    end
+    render :new, layout: !request.xhr?
   end
 
   # GET /gifts/1/edit
@@ -57,7 +72,7 @@ class GiftsController < ApplicationController
     if @gift.update_attributes(redeemed: true)
       flash[:notice] = "Meal Redeemed!"
       TwilioTextSender.send!(@gift)
-      redirect_to restaurants_profile_path
+      redirect_to redemption_confirmation_path
     else
       flash[:error] = "Unable to redeem voucher"
       redirect_to restaurants_profile_path
@@ -76,6 +91,10 @@ class GiftsController < ApplicationController
     end
   end
 
+  def confirm_redemption
+    @restaurant = @gift.restaurant
+  end
+
   def confirm
     @gift = Gift.find_by(id: params[:id])
     @restaurant = @gift.restaurant
@@ -83,30 +102,28 @@ class GiftsController < ApplicationController
 
   private
 
-
-
-    def find_gift
-      @gift = Gift.find_by(id: params[:id])
-    end
+  def find_gift
+    @gift = Gift.find_by_slug(params[:id])
+  end
 
   # def authorize_user
   #   find_gift
   #   redirect_to root_path unless current_user.received_taco?(@gift)
   # end
 
-    def authenticate_user
-      unless current_user
-       flash[:error] = ["Please login to send a meal."]
-       redirect_to root_path
-      end
+  def authenticate_user
+    unless current_user || request.xhr?
+     flash[:error] = ["Please login to send a meal."]
+     redirect_to root_path
     end
+  end
 
-    def gift_params
-      params.require(:gift).permit(:message, :phone, :charitable)
-    end
+  def gift_params
+    params.require(:gift).permit(:message, :phone, :charitable)
+  end
 
-    def set_gift
-      @gift = Gift.find(params[:id])
-    end
+  def set_gift
+    @gift = Gift.find(params[:id])
+  end
 
 end

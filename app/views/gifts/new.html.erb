@@ -1,42 +1,21 @@
-<div id="restaurant_index" class="row">
+<% if flash[:auth_error] %>
+    <%=flash[:auth_error]%>
+<% else %>
+    <div id="new_tacos" >
+      <%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
 
-  <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
-    <br>
-    <h1>Send a meal from <%=@restaurant.name%>!</h1>
+        <%= f.collection_select(:receiver, @receivers, :id, :combined_value, include_blank: "Option 1: Search for a user", label:false)  %>
+        <%= @gift.errors[:reciever].first %>
 
-    <%= form_for @gift, url: restaurant_gifts_path(@restaurant) do |f| %>
-    <%= f.label :receiver, "Search for user: " %>
-    <%= f.collection_select(:receiver, @receivers, :id, :combined_value, include_blank: true, label:false) %>
-    <%= @gift.errors[:reciever].first %>
+        <%= f.text_field :phone, placeholder: "Option 2: Enter a phone number", maxlength: "10", label: false %>
+        <%= @gift.errors[:phone].first %>
 
-    <p>OR</p>
+        <%= f.check_box :charitable, label: "Option 3: Buy a meal for a stranger" %>
 
-    <%= f.text_field :phone, placeholder: "Enter phone number", maxlength: "10", label:false %><br/>
-    <%= @gift.errors[:phone].first %>
+        <%= f.text_area :message, size: "30x6", placeholder: "Include a personal note!", label: false  %>
 
-    <p>OR</p>
-    <%= f.check_box :charitable, label:false %>
-    <%= f.label :charitable, "Charity time! Send a meal to someone who needs it." %>
-
-    <%= f.collection_select(:menu_item, @menu_items, :id ,:combined_value, include_blank: true, label:false)  %>
-    <%= @gift.errors[:menu_item].first %>
-
-    <%= f.text_area :message, size: "30x6", placeholder: "Include a personal note!"  %><br/>
-    Payment Information
-    <%= fields_for :cc do |cc| %>
-      <%= cc.text_field :num, placeholder: "cc number: (XXXXXXXXXXXXXXXX)", maxlength: "16", label:false%>
-      <%= cc.text_field :exp_date, placeholder: "cc expiration date: (MM/YY)", maxlength: "5", label:false%>
-
-    <%end%>
-    <%= fields_for :cc_dummy do |dummy| %>
-        <%= dummy.text_field :cvv, placeholder: "CVV code", maxlength: "4", label: false%>
-        <%= dummy.text_field :zip, placeholder: "Billing Zip Code", maxlength: "5", label: false%>
-    <%end%>
-
-    <br>
-
-    <%= f.submit "Send a meal", :class=>"button round" %>
-    <% end %>
-  </div>
-</div>
-
+        <%= f.hidden_field :menu_item, :value => "$menu_item_id" %>
+        <%= f.submit "Send a meal", :class=>"button expand" %>
+      <% end %>
+    </div>
+<% end %>
