@@ -22,7 +22,7 @@ class Gift < ActiveRecord::Base
   end
 
   def to_param
-    slug
+    "#{self.id}-#{slug}"
   end
 
   private
