@@ -103,7 +103,7 @@ class GiftsController < ApplicationController
   private
 
   def find_gift
-    @gift = Gift.find_by_slug(params[:id])
+    @gift = Gift.find_by(id: params[:id].split("-").first)
   end
 
   # def authorize_user

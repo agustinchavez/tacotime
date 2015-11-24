@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -30,7 +30,7 @@ gem 'validates_email_format_of'
 
 gem 'faker'
 
-gem 'rails_12factor'
+
 
 gem 'twilio-ruby', '~> 4.2.1'
 
@@ -44,6 +44,8 @@ gem 'cloudinary'
 gem 'factory_girl_rails'
 
 gem 'gon'
+
+gem 'heroku'
 
 gem 'yelp'
 
@@ -71,6 +73,7 @@ gem 'compass-rails', '~> 2.0.4'
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -79,5 +82,10 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'database_cleaner'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'pg'
 end
 

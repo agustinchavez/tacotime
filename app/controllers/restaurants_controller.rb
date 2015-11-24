@@ -14,18 +14,18 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
-    # if request.xhr?
-      @restaurant = Restaurant.find_by_slug(params[:id])
-    # else
-      # @restaurant = Restaurant.find_by(id:params[:id])
-    # end
+    @restaurant = Restaurant.find_by_slug(params[:id])
     @restaurant = current_restaurant unless @restaurant
     @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items
     @charitable_gifts = @restaurant.unredeemed_charitable_gifts
     @unredeemed_gifts = @restaurant.unredeemed_gifts
     if request.xhr?
-      @unredeemed_gifts = @restaurant.search(params[:search]).order("created_at DESC")
+      if params[:search] == ""
+        @unredeemed_gifts = []
+      else
+        @unredeemed_gifts = @restaurant.search_non_charitable_gifts(params[:search]).order("created_at DESC")
+      end
       render :partial => "unredeemed_gift", collection: @unredeemed_gifts
     end
 

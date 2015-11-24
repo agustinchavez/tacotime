@@ -50,8 +50,8 @@ class Restaurant < ActiveRecord::Base
     gifts.where(charitable: true, redeemed: false)
   end
 
-  def search(search)
-    self.unredeemed_gifts.where("redemption_code LIKE ?", "%#{search}%")
+  def search_non_charitable_gifts(search)
+    self.unredeemed_gifts.where("redemption_code LIKE ? AND charitable = ?", "%#{search}%", false)
   end
 
   def to_param
