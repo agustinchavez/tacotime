@@ -24,21 +24,14 @@ class GiftsController < ApplicationController
   # GET /gifts/new
   def new
     if request.xhr?
-      if !current_user
-        flash[:auth_error] = "Please login to send a meal."
-      else
-        @restaurant = Restaurant.find_by(id: params[:restaurant_id])
-        @menu_items = @restaurant.menu_items
-        @receivers = User.all
-        @gift = Gift.new
-     end
-
+      flash[:auth_error] = "Please login to send coffee." unless current_user
+      @restaurant = Restaurant.find_by(id: params[:restaurant_id])
     else
-      @restaurant = Restaurant.find_by_slug(params[:restaurant_id])
-      @menu_items = @restaurant.menu_items
-      @receivers = User.all
-      @gift = Gift.new
+      @restaurant = Restaurant.find_by(slug: params[:restaurant_id])
     end
+    @menu_items = @restaurant.menu_items
+    @receivers = User.all
+    @gift = Gift.new
     render :new, layout: !request.xhr?
   end
 
@@ -49,7 +42,7 @@ class GiftsController < ApplicationController
   # POST /gifts
   # POST /gifts.json
   def create
-    restaurant = Restaurant.find_by(id: params[:restaurant_id])
+    restaurant = Restaurant.find_by(slug: params[:restaurant_id])
     gift = current_user.given_tacos.build(gift_params)
     gift.assign_phone(params[:gift])
     if gift.save
@@ -60,7 +53,7 @@ class GiftsController < ApplicationController
     else
       gift.destroy
       flash[:error] = gift.errors.full_messages
-      redirect_to new_restaurant_gift_path(restaurant)
+      redirect_to restaurant_path(restaurant)
     end
 
   end

@@ -13,6 +13,8 @@
     <%= favicon_link_tag("taco_logo.png") %>
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Pacifico|Quicksand:400,300,700|Nunito:400,300,700' rel='stylesheet' type='text/css'>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+    <%= javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js" %>
 
   </head>
 
@@ -25,5 +27,5 @@
 
 
   </body>
-  <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+
 </html>

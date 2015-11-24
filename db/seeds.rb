@@ -1,26 +1,18 @@
-User.create(first_name:"Jackedman",last_name:"Huge", password: "password",
-email:"huge@Jackedman.com", phone:"2064326179", picture:Cloudinary::Uploader.upload("http://screenrant.com/wp-content/uploads/Hugh-Jackman-Muscles-Claws-in-The-Wolverine.jpg")["public_id"])
 
 User.create(first_name:"Agustin",last_name:"Chavez", password: "password",
 email:"chavez.agustin@outlook.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://www.iconarchive.com/download/i65798/hopstarter/bioman/Bioman-Avatar-1-Red.ico")["public_id"])
 
-User.create(first_name:"Cat",last_name:"Man", password: "password",
-email:"cats@hats.com", phone:"1234567890", picture: Cloudinary::Uploader.upload("https://cdn1.iconfinder.com/data/icons/homex-icons-i/64/Cat-128.png")["public_id"])
-
 User.create(first_name:"Carla",last_name:"Chavez", password: "password",
 email:"carlita_sophie@hotmail.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://previews.123rf.com/images/escada/escada1011/escada101100097/8265037-icon-of-business-women-Stock-Vector-avatar.jpg")["public_id"])
-
-User.create(first_name:"Natalie",last_name:"Chavez", password: "password",
-email:"tali42385@yahoo.com", phone:"7083071402", picture: Cloudinary::Uploader.upload("http://previews.123rf.com/images/escada/escada1011/escada101100097/8265037-icon-of-business-women-Stock-Vector-avatar.jpg")["public_id"])
 
 25.times do
   n = Faker::Name.first_name
   User.create( first_name: n,
 last_name:Faker::Name.last_name,    password: "password",
-email:"#{n}#{rand(1000)}@example.com", phone: Random.new.rand(1_000_000_000..9_999_999_999).to_s, picture: Cloudinary::Uploader.upload(Faker::Avatar.image)["public_id"])
+email:"#{n}#{rand(1000)}@example.com", phone: Random.new.rand(1_000_000_000..9_999_999_999).to_s)
 end
 
-prices = [2.85, 3.45, 3.95, 3.35, 4.45, 1.75, 2.10, 3.65, 4.65, 2.35]
+prices = [2.85, 3.45, 3.95, 3.35, 4.45, 1.75, 2.10, 3.65, 4.65, 2.35 2.55]
 drinks = ["Horchata", "Lemonade", "Jarritos", "Coke", "Cafe", "Margarita", "Pina Colada", "Champurado", "Cortado", "Aguas Naturales", "Water"]
 
 Restaurant.create(name: "Nuevo Leon Restaurant", address: "1515 W 18th St Chicago, IL 60608", email: "restaurant@example.com", password: 'password', city: "Chicago", neighborhood: "Pilsen", picture: Cloudinary::Uploader.upload("http://s3-media3.fl.yelpcdn.com/bphoto/ov8LvTu_b0IeaEdAMeWpkA/o.jpg")["public_id"])
@@ -90,10 +82,11 @@ Restaurant.all.each do |c|
       drinks = drinks.dup.shuffle
       c.menu_items.create(name: drinks.pop, price: prices.sample)
     end
+  drinks = ["Horchata", "Lemonade", "Jarritos", "Coke", "Cafe", "Margarita", "Pina Colada", "Champurado", "Cortado", "Aguas Naturales", "Water"]
 end
 
 User.all.each do |u|
-  (2..7).to_a.sample.times do
+  5.times do
     # redeemed
     u.redeemed_gifts.create(giver: User.all.sample, phone:Random.new.rand(1_000_000_000..9_999_999_999).to_s, menu_item: MenuItem.all.sample, redeemed: true)
     # unredeemed
@@ -104,3 +97,14 @@ User.all.each do |u|
     User.all.sample.redeemed_gifts.create(giver: u, phone:Random.new.rand(1_000_000_000..9_999_999_999).to_s, menu_item: MenuItem.all.sample, redeemed: false)
   end
 end
+
+10.times do
+  Gift.create(giver: User.all.sample, menu_item: MenuItem.first, redeemed: false, charitable: true)
+end
+
+natalie = User.create(first_name:"Natalie",last_name:"Chavez", password: "password",
+email:"tali42385@yahoo.com", phone:"7083071445", picture: Cloudinary::Uploader.upload("http://previews.123rf.com/images/escada/escada1011/escada101100097/8265037-icon-of-business-women-Stock-Vector-avatar.jpg")["public_id"])
+
+huge = User.create(first_name:"Huge", last_name:"Jackedman", password:"password", email:"huge@jackedman.com", phone:"1234567890")
+
+natalie.given_tacos.create(menu_item: MenuItem.find(1), receiver: huge)

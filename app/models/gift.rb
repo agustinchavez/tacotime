@@ -8,9 +8,7 @@ class Gift < ActiveRecord::Base
   delegate :restaurant, to: :menu_item
   delegate :price, to: :menu_item
 
-  before_create :generate_redemption_code
-
-  before_save :generate_slug
+  before_save :generate_slug, :generate_redemption_code
 
   validates_presence_of :menu_item
   validates_presence_of :phone, unless: Proc.new { |gift| gift.charitable }

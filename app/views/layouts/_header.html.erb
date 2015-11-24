@@ -1,12 +1,15 @@
 <div>
 <nav class="top-bar" data-topbar>
   <ul class="title-area">
+    <div id="logo-wrapper">
     <li class="name">
     <div id="logo">
       <%= image_tag("taco_logo.png") %>
-      <h1><%= link_to "TacoTime", root_path %></h1>
+      <h1 class="show-for-medium-up"><%= link_to "TacoTime", root_path %></h1>
+      <h1 class="show-for-small-only"><%= link_to "TT", root_path %></h1>
     </div>
     </li>
+  </div>
     <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
   </ul>
   <% flash[:error] %>
