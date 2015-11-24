@@ -1,0 +1,14 @@
+<ul class="no-bullet">
+<% gifts.each do |gift| %>
+  <% if gift.redeemed %>
+    <li class="padding">
+    <%= link_to "#{gift.restaurant.name} (#{gift.name})", gift_path(gift), class: "gift redeemed" %>
+    </li>
+  <% else %>
+    <li class="padding">
+    <%= link_to "#{gift.restaurant.name} (#{gift.name})", gift_path(gift), class: "gift unredeemed" %>
+    </li>
+  <% end %>
+  <br>
+<%end%>
+</ul>

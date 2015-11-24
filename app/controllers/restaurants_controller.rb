@@ -14,7 +14,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
-    @restaurant = Restaurant.find_by_slug(params[:id])
+    @restaurant = Restaurant.find_by(slug: params[:id])
     @restaurant = current_restaurant unless @restaurant
     @menu_item = MenuItem.new
     @menu_items = @restaurant.menu_items

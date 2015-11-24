@@ -37,7 +37,11 @@ module TwilioTextSender
   end
 
   def receive_message(gift)
-    "You received a gift meal at #{gift.restaurant.name}  from #{gift.giver.first_name}! Visit http://google.com to redeem."
+    if gift.message.length > 1
+      "You received a gift, you got a #{gift.restaurant.name} from #{gift.giver.first_name} with the message: \"#{gift.message}\" Visit http://tacotime2015.herokuapp.com to redeem."
+    else
+      "You received a gift, you got a #{gift.restaurant.name} from #{gift.giver.first_name}! Visit http://tacotime2015.herokuapp.com to redeem."
+    end
   end
 
   def redeem_message

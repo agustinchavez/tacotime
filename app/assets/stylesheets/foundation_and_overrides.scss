@@ -331,10 +331,10 @@ $list-font-family: $paragraph-font-family;
 // $include-html-accordion-classes: $include-html-classes;
 
 // $accordion-navigation-padding: rem-calc(16);
-// $accordion-navigation-bg-color: $silver;
+// $accordion-navigation-bg-color: $darker-blue;
 // $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
 // $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
-// $accordion-navigation-font-color: $jet;
+// $accordion-navigation-font-color: $white;
 // $accordion-navigation-font-size: rem-calc(16);
 $accordion-navigation-font-family: $body-font-family;
 
@@ -1384,7 +1384,7 @@ $tabs-navigation-font-family: $body-font-family;
  // $topbar-margin-bottom: 0;
  // Controlling the styles for the title in the top bar
  // $topbar-title-weight: $font-weight-normal;
- $topbar-title-font-size: rem-calc(30);
+ $topbar-title-font-size: rem-calc(26);
  $topbar-title-font-family: "Pacifico";
  // Set the link colors and styles for top-level nav
  $topbar-link-color: $header-logo-color;

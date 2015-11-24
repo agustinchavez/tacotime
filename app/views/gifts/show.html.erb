@@ -1,7 +1,7 @@
 <% if current_user.received_taco?(@gift) %>
 
   <% if @gift.redeemed %>
-  <div class="row">
+  <div class="row low_content">
       <div class="small-12 columns">
         <ul class="pricing-table">
           <li class="price"> This gift has been redeemed!</li>
@@ -9,11 +9,12 @@
       </div>
   </div>
   <% else %>
-  <div class="row">
-      <div class="small-12 columns">
-      <ul class="pricing-table">
+  <div class="row low_content">
+      <div class="small-12 columns ">
+      <ul class="pricing-table add_margin">
         <li class="price"> Yay! You received a <span class="bold"><%=@gift.name%></span> from <span class="bold"><%=@gift.giver.first_name%> <%=@gift.giver.last_name%></span></li>
-        <li class="price">Your voucher code is: <kbd><%=@gift.redemption_code%></kbd></li>
+        <li class="price">Your voucher code is:</li>
+        <li class="price"><kbd><%=@gift.redemption_code%></kbd></li>
         <li class="price"> You can pick it up at <span class="bold"><%=@restaurant.name%></span>
           <hr>
             <div style="height:350px;width:100%" id="map"></div>
@@ -27,11 +28,11 @@
 
 <% else %>
 
-  <div class="row">
+  <div class="row low_content">
       <div class="small-12 columns">
-      <ul class="pricing-table">
+      <ul class="pricing-table add_margin">
         <li class="price"> You sent a <span class="bold"><%=@gift.name%></span> to <span class="bold">
-          <% if @gift.receiver.first_name %>
+          <% if @gift.receiver %>
             <%=@gift.receiver.first_name%> <%=@gift.receiver.last_name%>
           <% else %>
             <%=@gift.phone%>
