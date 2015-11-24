@@ -1,18 +1,10 @@
-<div class="row">
-  <div class="small-12 columns">
-    <h1><%=@restaurant.name%></h1>
-  </div>
-</div>
-
-<div class="row">
-  <div class="small-12 columns">
-    <%= cl_image_tag(@restaurant.picture, :width => 1000, :height => 400, :crop => :fill) %>
-  </div>
-</div>
+<div class="row low_content">
+  <div class="small-12 medium-10 medium-offset-1 columns">
 
 
-<div class="row">
-  <div class="small-12 columns">
+<h1><%=@restaurant.name%></h1>
+     <%= cl_image_tag(@restaurant.picture, :width => 1600, :height => 700, :crop => :fill) %>
+     <hr>
     <% if @restaurant.owner?(current_restaurant) %>
     <%= render partial: "profile_view" %>
     <% else %>
@@ -20,4 +12,3 @@
     <% end %>
   </div>
 </div>
-<br>

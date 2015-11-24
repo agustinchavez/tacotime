@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   before_save :extract_username, :downcase_names
 
 
-  validates_presence_of :first_name, :last_name, :email, :phone
+  validates_presence_of :email
   validates :first_name, length: {maximum: 20}
   validates :last_name, length: {maximum: 20}
   validates_length_of :phone, :is => 10

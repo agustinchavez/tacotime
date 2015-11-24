@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row low-content">
   <div class= "small-12 column">
 <% if flash[:error] %>
 
@@ -19,7 +19,7 @@
 
   <% if @gift.charitable %>
     <h4 class="text-center">
-    Please make a cup of <%=@gift.name%> to earn some extra karma! We will also send an email to <span class="bold"><%=@gift.giver.full_name%></span>, informing them of the karma boost.
+    Please make a cup of "<%=@gift.name%>" to brighten up this person's day. Thank You!
     <h4>
   <% else %>
     <h4 class="text-center">
@@ -28,10 +28,7 @@
   <% end %>
 
 <% end %>
-</div>
-</div>
-<div class="row">
-  <div class= "small-2 columns small-centered">
-    <%= link_to "Go Back", @restaurant, :class =>"button" %>
+<hr>
+<%= link_to "Back to Profile", @restaurant, :class =>"button expanded small-8 small-offset-2 medium-4 medium-offset-4 large-2 large-offset-5 columns text-centered" %>
   </div>
 </div>
