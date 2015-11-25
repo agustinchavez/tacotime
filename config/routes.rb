@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'restaurants#index'
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  devise_for :restaurants, :controllers => { registrations: 'registrations' }
+  devise_for :restaurants, :controllers => { registrations: 'restaurant/registrations' }
 
   get '/restaurants/login' => 'restaurant_sessions#new'
   get '/restaurants/profile' => 'restaurants#show'
