@@ -20,7 +20,7 @@
             <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
           <% elsif restaurant_signed_in? %>
             <li><%= link_to "#{current_restaurant.name}'s settings",edit_restaurant_registration_path %></li>
-            <li><a href="#"><%= link_to "Log Out", restaurants_logout_path, method: :delete %></a></li>
+            <li><a href="#"><%= link_to "Log Out", destroy_restaurant_session_path, method: :delete %></a></li>
           <% else %>
             <li><%= render 'devise/shared/registration_items' %></a></li>
             <li><%= render 'devise/shared/login_items' %></a></li>
