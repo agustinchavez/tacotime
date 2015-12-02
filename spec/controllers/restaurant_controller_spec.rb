@@ -6,7 +6,7 @@ describe RestaurantsController do
 
   describe 'GET #index' do
 
-    context 'cafe index page' do
+    context 'restaurant index page' do
 
       before :each do
         get :index

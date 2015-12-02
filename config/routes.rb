@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   post '/restaurants/city' => 'restaurants#city'
   post '/restaurants/neighborhood' => 'restaurants#neighborhood'
 
-  resources :restaurants, only: [:index, :show] do
-    resources :gifts, only: [:new, :create, :update]
+  resources :restaurants, only: [:index, :show, :update] do
+    resources :gifts, only: [:new, :create]
   end
 
 
