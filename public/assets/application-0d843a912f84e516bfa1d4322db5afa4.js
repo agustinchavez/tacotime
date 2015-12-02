@@ -11997,7 +11997,7 @@ return jQuery;
 
       // comma delimited list of selectors that, on click, will close clearing,
       // add 'div.clearing-blackout, div.visible-img' to close on background click
-      close_selectors : '.clearing-close, div.clearing-blackout', 
+      close_selectors : '.clearing-close, div.clearing-blackout',
 
       // Default to the entire li element.
       open_selectors : '',
@@ -12141,7 +12141,7 @@ return jQuery;
       if ($el.parent().hasClass('carousel')) {
         return;
       }
-      
+
       $el.after('<div id="foundationClearingHolder"></div>');
 
       var grid = $el.detach(),
@@ -12152,7 +12152,7 @@ return jQuery;
       } else {
         grid_outerHTML = grid[0].outerHTML;
       }
-      
+
       var holder = this.S('#foundationClearingHolder'),
           settings = $el.data(this.attr_name(true) + '-init'),
           data = {
@@ -12253,7 +12253,7 @@ return jQuery;
           .removeClass('clearing-blackout');
         container.removeClass('clearing-container');
         visible_image.hide();
-        visible_image.trigger('closed.fndtn.clearing');        
+        visible_image.trigger('closed.fndtn.clearing');
       }
 
       // Event to re-enable scrolling on touch devices
@@ -12417,7 +12417,7 @@ return jQuery;
           .hide();
       }
       return this;
-    }, 
+    },
 
     // directional methods
 
@@ -12608,7 +12608,7 @@ return jQuery;
 
           if ($this.data(self.data_attr())) {
               settings = $this.data(self.data_attr(true) + '-init') || self.settings;
-          } 
+          }
           else {
               var target   = S('[' + self.attr_name() + '="' + S(this).attr('id') + '"]'),
                   settings = target.data(self.attr_name(true) + '-init') || self.settings;
@@ -12779,13 +12779,13 @@ return jQuery;
 
         p.top -= o.top;
         p.left -= o.left;
-        
+
         //set some flags on the p object to pass along
         p.missRight = false;
         p.missTop = false;
         p.missLeft = false;
         p.leftRightFlag = false;
-    
+
         //lets see if the panel will be off the screen
         //get the actual width of the page and store it
         var actualBodyWidth;
@@ -12797,7 +12797,7 @@ return jQuery;
 
         var actualMarginWidth = (window.outerWidth - actualBodyWidth) / 2;
         var actualBoundary = actualBodyWidth;
-    
+
         if (!this.hasClass('mega')) {
           //miss top
           if (t.offset().top <= this.outerHeight()) {
@@ -12805,13 +12805,13 @@ return jQuery;
             actualBoundary = window.outerWidth - actualMarginWidth;
             p.leftRightFlag = true;
           }
-          
+
           //miss right
           if (t.offset().left + this.outerWidth() > t.offset().left + actualMarginWidth && t.offset().left - actualMarginWidth > this.outerWidth()) {
             p.missRight = true;
             p.missLeft = false;
           }
-          
+
           //miss left
           if (t.offset().left - this.outerWidth() <= 0) {
             p.missLeft = true;
@@ -12827,12 +12827,12 @@ return jQuery;
             p = self.dirs._base.call(this, t);
 
         this.addClass('drop-top');
-        
+
         if (p.missTop == true) {
           p.top = p.top + t.outerHeight() + this.outerHeight();
           this.removeClass('drop-top');
         }
-    
+
         if (p.missRight == true) {
           p.left = p.left - this.outerWidth() + t.outerWidth();
         }
@@ -12872,7 +12872,7 @@ return jQuery;
         var p = Foundation.libs.dropdown.dirs._base.call(this, t);
 
         this.addClass('drop-left');
-        
+
         if (p.missLeft == true) {
           p.left =  p.left + this.outerWidth();
           p.top = p.top + t.outerHeight();
@@ -12886,7 +12886,7 @@ return jQuery;
         var p = Foundation.libs.dropdown.dirs._base.call(this, t);
 
         this.addClass('drop-right');
-        
+
         if (p.missRight == true) {
           p.left = p.left - this.outerWidth();
           p.top = p.top + t.outerHeight();
@@ -12894,7 +12894,7 @@ return jQuery;
         } else {
           p.triggeredRight = true;
         }
-    
+
         var self = Foundation.libs.dropdown;
 
         if (t.outerWidth() < this.outerWidth() || self.small() || this.hasClass(s.mega_menu)) {
@@ -12924,7 +12924,7 @@ return jQuery;
           sel_after  = '.f-dropdown.open:after',
           css_before = 'left: ' + pip_offset_base + 'px;',
           css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
-        
+
       if (position.missRight == true) {
         pip_offset_base = dropdown.outerWidth() - 23;
         sel_before = '.f-dropdown.open:before',
@@ -12932,7 +12932,7 @@ return jQuery;
         css_before = 'left: ' + pip_offset_base + 'px;',
         css_after  = 'left: ' + (pip_offset_base - 1) + 'px;';
       }
-    
+
       //just a case where right is fired, but its not missing right
       if (position.triggeredRight == true) {
         sel_before = '.f-dropdown.open:before',
@@ -13105,9 +13105,9 @@ return jQuery;
           if (passed) {
             this.settings.directives[passed
               .scenario[1]].call(this, passed.el, passed.scenario[0], function () {
-                if (arguments[0] instanceof Array) { 
+                if (arguments[0] instanceof Array) {
                   var args = arguments[0];
-                } else { 
+                } else {
                   var args = Array.prototype.slice.call(arguments, 0);
                 }
 
@@ -13241,7 +13241,7 @@ return jQuery;
       else {
         var cached_split = scenario[0].split(/,\s*$/),
         path             = cached_split[0],
-        directive        = '';               
+        directive        = '';
       }
 
       return [this.trim(path), this.convert_directive(directive), this.trim(media_query)];
@@ -13249,7 +13249,7 @@ return jQuery;
 
     object : function(el) {
       var raw_arr = this.parse_data_attr(el),
-          scenarios = [], 
+          scenarios = [],
           i = raw_arr.length;
 
       if (i > 0) {
@@ -13304,7 +13304,7 @@ return jQuery;
 
     parse_data_attr : function (el) {
       var raw = el.attr(this.attr_name()).split(/\[(.*?)\]/),
-          i = raw.length, 
+          i = raw.length,
           output = [];
 
       while (i--) {
@@ -14263,7 +14263,7 @@ return jQuery;
       throttle_delay: 30, // calculation throttling to increase framerate
       fixed_top: 0, // top distance in pixels assigend to the fixed element on scroll
       offset_by_height: true,  // whether to offset the destination by the expedition height. Usually you want this to be true, unless your expedition is on the side.
-      duration: 700, // animation duration time 
+      duration: 700, // animation duration time
       easing: 'swing' // animation easing
     },
 
@@ -15121,7 +15121,7 @@ return jQuery;
         .off('.reveal')
         .on('click.fndtn.reveal', '[' + this.add_namespace('data-reveal-id') + ']:not([disabled])', function (e) {
           e.preventDefault();
-        
+
           if (!self.locked) {
             var element = S(this),
                 ajax = element.data(self.data_attr('reveal-ajax'));
@@ -15314,7 +15314,7 @@ return jQuery;
     toggle_bg : function (el, modal, state) {
       var settings = el.data(this.attr_name(true) + '-init') || this.settings,
             bg_root_element = settings.bg_root_element; // Adding option to specify the background root element fixes scrolling issue
-      
+
       if (this.S('.' + this.settings.bg_class).length === 0) {
         this.settings.bg = $('<div />', {'class': this.settings.bg_class})
           .appendTo(bg_root_element).hide();
@@ -16922,7 +16922,7 @@ $(document).ready(function() {
   }
 
   if ($('.tags-topbar').length) {
-    initCafeFilter();
+    initRestaurantFilter();
   }
 
   if ($('#dropin').length) {
@@ -19590,7 +19590,7 @@ var widget = $.widget;
     if (cloud_name.match(/^\//) && !secure) {
       return "/res" + cloud_name;
     }
-    
+
     var prefix = secure ? 'https://' : (window.location.protocol === 'file:' ? "file://" : 'http://');
     prefix = protocol ? protocol + '//' : prefix;
 
@@ -19608,7 +19608,7 @@ var widget = $.widget;
       }
       prefix += secure_distribution;
     } else if (cname) {
-      var subdomain = cdn_subdomain ? "a" + ((crc32(public_id) % 5) + 1) + "." : "";      
+      var subdomain = cdn_subdomain ? "a" + ((crc32(public_id) % 5) + 1) + "." : "";
       prefix += subdomain + cname;
     } else {
       prefix += (private_cdn ? cloud_name + "-res" : "res");
@@ -19761,7 +19761,7 @@ var widget = $.widget;
         return null;
     }
   }
-  
+
   function join_pair(key, value) {
     if (!value) {
       return undefined;
@@ -19892,7 +19892,7 @@ var widget = $.widget;
       } else {
         video_options.poster = cloudinary_url(public_id, $.extend({}, DEFAULT_POSTER_OPTIONS, options));
       }
-      
+
       if (!video_options.poster) delete video_options.poster;
 
       var html = '<video ';
@@ -19908,7 +19908,7 @@ var widget = $.widget;
       if (video_options.hasOwnProperty("html_width")) video_options.width = option_consume(video_options, 'html_width');
       if (video_options.hasOwnProperty("html_height")) video_options.height = option_consume(video_options, 'html_height');
       html = html + html_attrs(video_options) + '>';
-      if (multi_source) {          
+      if (multi_source) {
         for(var i = 0; i < source_types.length; i++) {
           var source_type = source_types[i];
           var transformation = source_transformation[source_type] || {};

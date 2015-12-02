@@ -3,7 +3,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    @restaurant = Restaurant.all
+    @restaurants = Restaurant.all
     if request.xhr?
       render @restaurants
     else
@@ -28,8 +28,6 @@ class RestaurantsController < ApplicationController
       end
       render :partial => "unredeemed_gift", collection: @unredeemed_gifts
     end
-
-
   end
 
 

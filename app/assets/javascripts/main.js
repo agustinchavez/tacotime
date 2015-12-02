@@ -7,7 +7,7 @@ $(document).ready(function() {
   }
 
   if ($('.tags-topbar').length) {
-    initCafeFilter();
+    initRestaurantFilter();
   }
 
   if ($('#dropin').length) {
