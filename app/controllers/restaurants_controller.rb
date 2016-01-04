@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
       else
         @unredeemed_gifts = @restaurant.search_non_charitable_gifts(params[:search]).order("created_at DESC")
       end
-      render :partial => "unredeemed_gift", collection: @unredeemed_gifts
+      render partial: "unredeemed_gift", collection: @unredeemed_gifts
     end
   end
 
@@ -91,13 +91,6 @@ class RestaurantsController < ApplicationController
     end
   end
 
-    # # Use callbacks to share common setup or constraints between actions.
-    # def set_restaurant
-    #   @restaurant = Restaurant.find(params[:id])
-    # end
-
-    # # Never trust parameters from the scary internet, only allow the white list through.
-    # def restaurant_params
-    #   params[:restaurant]
-    # end
 end
+
+
