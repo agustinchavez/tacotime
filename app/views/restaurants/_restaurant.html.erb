@@ -1,5 +1,5 @@
 <li><figure>
-  <%= link_to cl_image_tag(restaurant.picture, :width => 500, :height => 400, :crop => :fill ), @restaurants %>
+  <%= link_to cl_image_tag(restaurant.picture, :width => 500, :height => 400, :crop => :fill ), restaurant %>
   <figcaption>
     <h4><%= link_to restaurant.name, restaurant %></h4>
     <span>
