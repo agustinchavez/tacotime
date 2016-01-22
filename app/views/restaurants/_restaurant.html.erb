@@ -1,7 +1,7 @@
 <li><figure>
-  <%= link_to cl_image_tag(restaurant.picture, :width => 500, :height => 400, :crop => :fill ), restaurant %>
+  <%= link_to cl_image_tag(restaurant.picture, :width => 500, :height => 400, :crop => :fill ), @restaurant %>
   <figcaption>
-    <h4><%= link_to restaurant.name, restaurant %></h4>
+    <h4><%= link_to restaurant.name, @restaurant %></h4>
     <span>
       <% if restaurant.neighborhood %>
         <%= link_to restaurant.neighborhood, restaurants_neighborhood_path, class: "tag-container"%>
@@ -13,4 +13,4 @@
     <br>
   </figcaption>
 </figure></li>
-# <%= link_to 'select this restaurant', restaurant %>
+<%= link_to 'select this restaurant', @restaurant %>
