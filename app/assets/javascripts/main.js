@@ -14,6 +14,10 @@ $(document).ready(function() {
     initPayments();
   }
 
+  if ($('#restaurant_profile').length) {
+    initGiftSearch();
+  }
+
   if ($('.gift-form').length) {
     initGiftFormDropdown();
   }

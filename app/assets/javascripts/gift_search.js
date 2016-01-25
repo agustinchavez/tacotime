@@ -12,4 +12,4 @@ function initGiftSearch() {
         $("#search-results").html(response);
       }).fail(function(){console.log("search request failed")})
   });
-})
+}

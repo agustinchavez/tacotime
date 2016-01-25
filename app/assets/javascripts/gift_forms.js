@@ -15,7 +15,7 @@ function initGiftFormDropdown() {
   });
   function idFinder(classStr, finderStr) {
     var index = classStr.indexOf(finderStr) + finderStr.length;
-    rvar id = "";
+    var id = "";
     var i;
     for( i = 0; 1 == 1 ; i++ ){
       var nextChar = classStr.slice(index+i,(index+1+i));

@@ -1,9 +1,9 @@
 
-User.create(first_name:"Agustin",last_name:"Chavez", password: "password",
-email:"chavez.agustin@outlook.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://www.iconarchive.com/download/i65798/hopstarter/bioman/Bioman-Avatar-1-Red.ico")["public_id"])
+# User.create(first_name:"Agustin",last_name:"Chavez", password: "password",
+# email:"chavez.agustin@outlook.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://www.iconarchive.com/download/i65798/hopstarter/bioman/Bioman-Avatar-1-Red.ico")["public_id"])
 
-User.create(first_name:"Carla",last_name:"Chavez", password: "password",
-email:"carlita_sophie@hotmail.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://previews.123rf.com/images/escada/escada1011/escada101100097/8265037-icon-of-business-women-Stock-Vector-avatar.jpg")["public_id"])
+# User.create(first_name:"Carla",last_name:"Chavez", password: "password",
+# email:"carlita_sophie@hotmail.com", phone:"7084419208", picture: Cloudinary::Uploader.upload("http://previews.123rf.com/images/escada/escada1011/escada101100097/8265037-icon-of-business-women-Stock-Vector-avatar.jpg")["public_id"])
 
 25.times do
   n = Faker::Name.first_name

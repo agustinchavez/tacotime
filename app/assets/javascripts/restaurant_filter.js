@@ -1,4 +1,4 @@
-function initFilter() {
+function initRestaurantFilter() {
   $(".restaurants-container").on('click','.tag-container', function(e) {
     e.preventDefault();
     var url = $(this).attr('href');
@@ -10,7 +10,7 @@ function initFilter() {
 
   $(".tags-topbar").on('click','.tag-container', function(e) {
     e.preventDefault();
-    var = $(this).attr('href');
+    var url = $(this).attr('href');
     var tag = $(this).html();
     if(tag == "All") {
       $.ajax(url).done(function(data) {
