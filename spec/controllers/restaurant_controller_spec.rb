@@ -5,7 +5,6 @@ describe RestaurantsController do
   let!(:restaurant) {FactoryGirl.create(:restaurant)}
 
   describe 'GET #index' do
-
     context 'restaurant index page' do
 
       before :each do
@@ -13,35 +12,26 @@ describe RestaurantsController do
       end
 
       it 'assigns all restaurants to @restaurants' do
-      expect(assigns(:restaurants)).to match(Restaurant.all)
+        expect(assigns(:restaurants)).to eq(Restaurant.all)
       end
 
       it 'renders the correct page' do
         expect(response).to render_template :index
       end
-
     end
-
   end
 
   describe 'GET #show' do
-
     context 'shows a particular restaurant' do
-
-      before :each do
-        get :show, id: restaurant.id
-      end
-
-      it 'assigns the correct restaurant to @restaurant' do
-        expect(assigns(:restaurant)).to eq(restaurant)
-      end
-
-      it 'renders the correct page' do
-        expect(response).to render_template('show')
-      end
-
+      pending
     end
-
   end
 
+  describe 'GET #city' do
+    pending
+  end
+
+  describe 'GET #neighborhood' do
+    pending
+  end
 end

@@ -1,4 +1,4 @@
- require 'rails_helper'
+require 'rails_helper'
 
 describe GiftsController do
   include UserSessionsHelper
@@ -14,7 +14,7 @@ describe GiftsController do
     @user = FactoryGirl.create(:user)
     log_in_user(@user)
     attrs = FactoryGirl.attributes_for(:gift).merge(receiver: twilio_receiver, menu_item: menu_item, phone: twilio_receiver.phone)
-    @gift = @user.received_s.create(attrs)
+    @gift = @user.received_tacos.create(attrs)
   end
 
   def gift_attrs
@@ -22,7 +22,7 @@ describe GiftsController do
   end
 
   context '#new' do
-    it 'renders the new  gift form' do
+    it 'renders the new gift form' do
       log_in_user(user)
       get :new, restaurant_id: restaurant
       expect(response).to render_template(:new)
@@ -36,18 +36,18 @@ describe GiftsController do
 
   context '#create' do
     it 'redirects to root if not logged in' do
-      gift_attributes = FactoryGirl.attributes_for(:gift)
+     gift_attributes = FactoryGirl.attributes_for(:gift)
       post :create, restaurant_id: restaurant, gift: gift_attributes
       expect(response).to redirect_to(root_path)
     end
 
-    xit 'redirects to new  gift if params are invalid' do
+    xit 'redirects to new gift if params are invalid' do
       log_in_user(user)
       post :create, restaurant_id: restaurant, gift: {menu_item: "bad data"}
       expect(response).to redirect_to(new_restaurant_gift_path(restaurant))
     end
 
-    xit 'creates a new  gift' do
+    xit 'creates a new gift' do
       log_in_user(user)
       menu_item = restaurant.menu_items.create(FactoryGirl.attributes_for(:menu_item))
       attrs = FactoryGirl.attributes_for(:gift).merge(receiver: twilio_receiver.id, menu_item: menu_item)
@@ -66,27 +66,27 @@ describe GiftsController do
   context '#show' do
     it 'redirects to root if not logged in' do
       attrs = FactoryGirl.attributes_for(:gift).merge(receiver: twilio_receiver, menu_item: menu_item, phone: twilio_receiver.phone)
-      gift = user.received_s.create(attrs)
+     gift = user.received_tacos.create(attrs)
       get :show, id: gift
       expect(response).to redirect_to(root_path)
     end
 
-    it 'redirects to root if not authorized to view  gift' do
+    it 'redirects to root if not authorized to view gift' do
       log_in_user(user)
       user2 = FactoryGirl.create(:user)
       attrs = FactoryGirl.attributes_for(:gift).merge(receiver: twilio_receiver, menu_item: menu_item, phone: twilio_receiver.phone)
-      gift = user2.received_s.create(attrs)
+     gift = user2.received_tacos.create(attrs)
       get :show, id: gift
       expect(response).to redirect_to(root_path)
     end
 
-    it 'renders the show  gift view if  belongs to current user' do
+    it 'renders the show gift view if  belongs to current user' do
       prepare_gift_show
       get :show, id: @gift
       expect(response).to render_template(:show)
     end
 
-    it 'locates the requested  gift' do
+    it 'locates the requested gift' do
       prepare_gift_show
       get :show, id: @gift
       expect(assigns(:gift)).to eq(@gift)
@@ -104,12 +104,12 @@ describe GiftsController do
   end
 
   context '#confirm' do
-    it 'assigns the  gifts restaurant to @restaurant' do
+    it 'assigns the gifts restaurant to @restaurant' do
       log_in_user(user)
       @menu_item = restaurant.menu_items.create(FactoryGirl.attributes_for(:menu_item))
       @gift = Gift.create(phone:"1234567890", menu_item: @menu_item)
       get :confirm, id: @gift
-      expect(assigns(:restaurant)).to be_a(restaurant)
+      expect(assigns(:restaurant)).to be_a(Restaurant)
     end
   end
 

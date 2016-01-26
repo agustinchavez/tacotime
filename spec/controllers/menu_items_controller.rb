@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe MenuItemsController, type: :controller do
+  include RestaurantSessionsHelper
 
   def new_menu_item
     @restaurant = FactoryGirl.create(:restaurant)
@@ -30,10 +31,10 @@ RSpec.describe MenuItemsController, type: :controller do
       new_menu_item
       expect{post :create, restaurant_id: @restaurant.id, menu_item: invalid_menu_item_attrs }.to change{@restaurant.menu_items.count}.by(0)
     end
-    it 'redirects to restaurant#show after attempting to add' do
+    it 'redirects to restaurant#profile after attempting to add' do
       new_menu_item
       post :create, restaurant_id: @restaurant.id, menu_item: menu_item_attrs
-      expect(response).to redirect_to(restaurant_path(@restaurant))
+      expect(response).to redirect_to(restaurants_profile_path)
     end
 
     it 'does not allow creation when logged out' do
@@ -61,33 +62,29 @@ RSpec.describe MenuItemsController, type: :controller do
       put :update, restaurant_id: @restaurant.id, id: @menu_item.id, menu_item: new_attrs
       expect(@menu_item.attributes).to eq(old_attrs)
     end
-    it 'redirects to restaurant#show after attempting to update' do
+    it 'redirects to restaurant#profile after attempting to update' do
       create_menu_item
       put :update, restaurant_id: @restaurant.id, id: @menu_item.id, menu_item: menu_item_attrs
-      expect(response).to redirect_to(restaurant_path(@restaurant))
+      expect(response).to redirect_to(restaurants_profile_path)
     end
-    it 'does not allow edits when logged out' do # this test needs refactoring
+    it 'does not allow edits when logged out' do
       @restaurant = FactoryGirl.create(:restaurant)
-      @menu_item = @restaurant.menu_items.new
-      @menu_item.update_attributes(menu_item_attrs)
+      @menu_item = @restaurant.menu_items.create(menu_item_attrs)
       old_attrs = @menu_item.attributes
       new_attrs = menu_item_attrs
       put :update, restaurant_id: @restaurant.id, id: @menu_item.id, menu_item: new_attrs
       @menu_item.reload
-      attrs = {name: @menu_item.name, price: @menu_item.price}
       expect(@menu_item.attributes).to eq(old_attrs)
     end
     it 'does not allow edits when unauthorized' do
       @restaurant1 = FactoryGirl.create(:restaurant)
       @restaurant2 = FactoryGirl.create(:restaurant)
       log_in_restaurant(@restaurant1)
-      @menu_item = @restaurant2.menu_items.new
-      @menu_item.update_attributes(menu_item_attrs)
+      @menu_item = @restaurant2.menu_items.create(menu_item_attrs)
       old_attrs = @menu_item.attributes
       new_attrs = menu_item_attrs
       put :update, restaurant_id: @restaurant2.id , id: @menu_item.id, menu_item: new_attrs
       @menu_item.reload
-      attrs = {name: @menu_item.name, price: @menu_item.price}
       expect(@menu_item.attributes).to eq(old_attrs)
     end
   end
@@ -97,10 +94,10 @@ RSpec.describe MenuItemsController, type: :controller do
       create_menu_item
       expect{delete :destroy, restaurant_id: @restaurant.id, id: @menu_item.id}.to change{@restaurant.menu_items.count}.by(-1)
     end
-    it 'redirects to restaurant#show after destruction' do
+    it 'redirects to restaurant#profile after destruction' do
       create_menu_item
       delete :destroy, restaurant_id: @restaurant.id, id: @menu_item.id
-      expect(response).to redirect_to(restaurant_path(@restaurant))
+      expect(response).to redirect_to(restaurants_profile_path)
     end
     it 'does not allow destruction when logged out' do
       @restaurant = FactoryGirl.create(:restaurant)
