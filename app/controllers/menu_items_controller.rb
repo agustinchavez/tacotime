@@ -1,11 +1,11 @@
 class MenuItemsController < ApplicationController
-  before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
+  # before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
   before_action :find_menu_item, :authenticate_restaurant
   before_action :authorize_restaurant, {except: :create}
 
  def create
-    restaurant = current_restaurant
-    menu_item = restaurant.menu_items.build(menu_item_params)
+    @restaurant = current_restaurant
+    menu_item = @restaurant.menu_items.build(menu_item_params)
     menu_item.save
     redirect_to restaurants_profile_path
   end
